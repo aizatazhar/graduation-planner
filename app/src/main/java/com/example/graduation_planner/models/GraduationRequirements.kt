@@ -61,7 +61,7 @@ class GraduationRequirements {
                     || completedModuleCodes.containsAll(nocModuleCodes)
                     || completedModuleCodes.containsAll(fypModuleCodes)
                     || completedModuleCodes.filter { moduleCode -> sipModuleCodes.contains(moduleCode) }
-                            .size > 2 // need to take at least 2 modules from SIP modules
+                            .size >= 2 // need to take at least 2 modules from SIP modules
         }
 
         fun satisfiesItProfessionalism(modules: List<Module>): Boolean {
