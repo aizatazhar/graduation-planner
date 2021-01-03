@@ -7,9 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.example.graduation_planner.R
 import com.example.graduation_planner.models.GraduationRequirements
 import com.example.graduation_planner.models.SampleModules
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 
 class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
@@ -39,6 +43,11 @@ class HomeFragment : Fragment() {
 
         val tvCredits: TextView = root.findViewById(R.id.tvCredits)
         tvCredits.text = getString(R.string.tvCreditsText, viewModel.satisfiesCredits.toString())
+
+        val fabAddButton: ExtendedFloatingActionButton = root.findViewById(R.id.fabAddModule)
+        fabAddButton.setOnClickListener {
+            Toast.makeText(activity, "Adding module", Toast.LENGTH_SHORT).show()
+        }
 
         return root
     }

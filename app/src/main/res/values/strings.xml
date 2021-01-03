@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Graduation_Planner</string>
+    <string name="app_name">Graduation Planner</string>
     <string name="tvUlrText">Satisfied University Level Requirements: %s</string>
     <string name="tvCsFoundationsText">Satisfied CS Foundations: %s</string>
     <string name="tvCsBreadthAndDepthText">Satisfied CS Breadth &amp; Depth: %s</string>
@@ -7,4 +7,6 @@
     <string name="tvItProfessionalismText">Satisfied IT Professionalism: %s</string>
     <string name="tvMathematicsAndSciencesText">Satisfied Mathematics &amp; Sciences: %s</string>
     <string name="tvCreditsText">Satisfied Modular Credits Requirement: %s</string>
+    <string name="fabAddModuleDescription">Button to add a module</string>
+    <string name="fabAddModuleText">Add Module</string>
 </resources>
