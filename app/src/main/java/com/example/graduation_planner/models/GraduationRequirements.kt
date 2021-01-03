@@ -98,7 +98,7 @@ class GraduationRequirements {
                 totalCreditsEarned += module.credits
             }
 
-            return totalCreditsEarned > 160
+            return totalCreditsEarned >= 160
         }
 
         private fun toListOfModuleCodes(modules: List<Module>): List<String> {
