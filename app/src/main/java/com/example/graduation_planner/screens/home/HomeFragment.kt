@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
 
         val fabAddButton: ExtendedFloatingActionButton = root.findViewById(R.id.fabAddModule)
         fabAddButton.setOnClickListener {
-            Toast.makeText(activity, "Adding module", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(activity, "Adding module", Toast.LENGTH_SHORT).show()
             it.findNavController().navigate(R.id.action_home_to_searchFragment)
         }
 
