@@ -9,7 +9,17 @@
     <fragment
         android:id="@+id/home"
         android:name="com.example.graduation_planner.screens.home.HomeFragment"
-        android:label="home_fragment"
-        tools:layout="@layout/home_fragment" />
+        android:label="Graduation Planner"
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_home_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.graduation_planner.screens.search.SearchFragment"
+        android:label="Add a module"
+        tools:layout="@layout/search_fragment" />
 
 </navigation>

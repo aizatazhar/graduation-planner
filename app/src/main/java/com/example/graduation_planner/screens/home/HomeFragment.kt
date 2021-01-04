@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.findNavController
 import com.example.graduation_planner.R
 import com.example.graduation_planner.models.GraduationRequirements
 import com.example.graduation_planner.models.SampleModules
@@ -47,6 +48,7 @@ class HomeFragment : Fragment() {
         val fabAddButton: ExtendedFloatingActionButton = root.findViewById(R.id.fabAddModule)
         fabAddButton.setOnClickListener {
             Toast.makeText(activity, "Adding module", Toast.LENGTH_SHORT).show()
+            it.findNavController().navigate(R.id.action_home_to_searchFragment)
         }
 
         return root
