@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.graduation_planner.R
 import com.example.graduation_planner.models.Module
 
-class RecyclerAdapter(modules: List<Module>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter(modules: MutableList<Module>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
-    private var modules: List<Module> = modules
+    private var modules: MutableList<Module> = modules
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemImage: ImageView
@@ -41,5 +41,11 @@ class RecyclerAdapter(modules: List<Module>) : RecyclerView.Adapter<RecyclerAdap
 
     override fun getItemCount(): Int {
         return modules.size
+    }
+
+    fun submitList(newData: List<Module>) {
+        modules.clear()
+        modules.addAll(newData)
+        notifyDataSetChanged()
     }
 }
