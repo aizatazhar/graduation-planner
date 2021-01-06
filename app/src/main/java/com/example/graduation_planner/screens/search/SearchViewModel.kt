@@ -48,11 +48,12 @@ class SearchViewModel(private val moduleListJsonString: String) : ViewModel() {
 
     fun filterModules(query: String) {
         val filteredList = moduleList.filter { module ->
-            module.moduleCode.toUpperCase().contains(query.toUpperCase())
+            val uppercaseQuery = query.toUpperCase()
+            module.moduleCode.toUpperCase().contains(uppercaseQuery)
+                    || module.title.toUpperCase().contains(uppercaseQuery)
         }
 
         _displayList.value = filteredList as MutableList<Module>?
-        println(_displayList.value)
     }
 
     private fun jsonStringToModuleList() : List<Module> {

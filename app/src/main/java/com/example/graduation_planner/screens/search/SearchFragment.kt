@@ -41,9 +41,11 @@ class SearchFragment : Fragment() {
                 return true
             }
 
-            // We only want to query when the submit button is pressed
             override fun onQueryTextChange(newText: String?): Boolean {
-                return false
+                if (newText != null) {
+                    viewModel.filterModules(newText)
+                }
+                return true
             }
         })
 
