@@ -6,8 +6,14 @@ data class Module(
         @SerializedName("moduleCode")
         val moduleCode: String,
 
+        @SerializedName("title")
+        val title: String = "",
+
         @SerializedName("moduleCredit")
         val moduleCredit: Int,
+
+        @SerializedName("semesters")
+        val semesters: List<Int> = listOf(),
 
         @SerializedName("semesterData")
         val semesterData: List<SemesterData> = listOf()

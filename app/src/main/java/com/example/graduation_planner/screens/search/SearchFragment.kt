@@ -10,8 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduation_planner.R
-import com.example.graduation_planner.models.Module
-import com.google.gson.GsonBuilder
 
 class SearchFragment : Fragment() {
     private lateinit var viewModel: SearchViewModel
@@ -22,18 +20,23 @@ class SearchFragment : Fragment() {
         // Inflate the layout for this fragment
         val root: View = inflater.inflate(R.layout.search_fragment, container, false)
 
-        viewModel = ViewModelProvider(requireActivity()).get(SearchViewModel::class.java)
+        // Read moduleList.json and pass the string as an argument to our view model
+        val moduleListJsonString = readJsonFromAsset("moduleList.json")
+        val viewModelFactory = SearchViewModelFactory(moduleListJsonString)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(SearchViewModel::class.java)
 
+        // Set up our RecyclerView
         recyclerView = root.findViewById(R.id.rvModules)
-        recyclerAdapter = viewModel.displayList.value?.let { RecyclerAdapter(it) }!!
+        recyclerAdapter = RecyclerAdapter(viewModel.displayList.value!!)
         recyclerView.adapter = recyclerAdapter
 
+        // Handle search bar logic
         val searchBar = root.findViewById<SearchView>(R.id.svSearchBar)
         searchBar.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchBar.clearFocus()
                 if (query != null) {
-                    viewModel.findModules(query)
+                    viewModel.filterModules(query)
                 }
                 return true
             }
@@ -43,6 +46,8 @@ class SearchFragment : Fragment() {
                 return false
             }
         })
+
+        // Observe the LiveData of filtered modules and update our RecyclerView accordingly
         viewModel.displayList.observe(viewLifecycleOwner, Observer {
             recyclerAdapter.submitList(it)
         })
@@ -50,12 +55,9 @@ class SearchFragment : Fragment() {
         return root
     }
 
-    private fun readJsonFromAsset(fileName: String) : List<Module> {
-        val jsonString: String? = activity?.assets?.open(fileName)?.bufferedReader()?.use {
+    private fun readJsonFromAsset(fileName: String) : String {
+        return requireActivity().assets.open(fileName).bufferedReader().use {
             it.readText()
         }
-        val gson = GsonBuilder().create()
-
-        return gson.fromJson(jsonString, Array<Module>::class.java).toList()
     }
 }

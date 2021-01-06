@@ -9,14 +9,15 @@ import com.google.gson.GsonBuilder
 import okhttp3.*
 import java.io.IOException
 
-class SearchViewModel : ViewModel() {
-    private val moduleList = fetchSampleData()
+class SearchViewModel(private val moduleListJsonString: String) : ViewModel() {
+    private val moduleList: List<Module>
 
     private val _displayList = MutableLiveData<MutableList<Module>>()
     val displayList: LiveData<MutableList<Module>>
         get() = _displayList
 
     init {
+        moduleList = jsonStringToModuleList()
         _displayList.value = fetchSampleData()
     }
 
@@ -45,12 +46,17 @@ class SearchViewModel : ViewModel() {
         })
     }
 
-    fun findModules(query: String) {
+    fun filterModules(query: String) {
         val filteredList = moduleList.filter { module ->
             module.moduleCode.toUpperCase().contains(query.toUpperCase())
         }
 
         _displayList.value = filteredList as MutableList<Module>?
         println(_displayList.value)
+    }
+
+    private fun jsonStringToModuleList() : List<Module> {
+        val gson = GsonBuilder().create()
+        return gson.fromJson(moduleListJsonString, Array<Module>::class.java).toList()
     }
 }
