@@ -95,7 +95,7 @@ class GraduationRequirements {
         fun satisfiesCredits(modules: List<Module>): Boolean {
             var totalCreditsEarned: Int = 0
             for (module: Module in modules) {
-                totalCreditsEarned += module.credits
+                totalCreditsEarned += module.moduleCredit
             }
 
             return totalCreditsEarned >= 160

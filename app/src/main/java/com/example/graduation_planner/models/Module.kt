@@ -1,9 +1,19 @@
 package com.example.graduation_planner.models
 
+import com.google.gson.annotations.SerializedName
+
 data class Module(
-    val moduleCode: String = "",
+        @SerializedName("moduleCode")
+        val moduleCode: String,
 
-    val credits: Int,
+        @SerializedName("moduleCredit")
+        val moduleCredit: Int,
 
-    val semestersOffered: List<Int> = listOf<Int>()
+        @SerializedName("semesterData")
+        val semesterData: List<SemesterData> = listOf()
+)
+
+data class SemesterData(
+        @SerializedName("semester")
+        val semester: Int
 )
