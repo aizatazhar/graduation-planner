@@ -8,7 +8,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="5dp"
-    app:cardBackgroundColor="#FF8C8C"
+    app:cardBackgroundColor="#006A1E"
     app:cardCornerRadius="5dp"
     app:contentPadding="5dp" >
 
@@ -17,25 +17,36 @@
         android:layout_height="wrap_content"
         android:padding="10dp" >
 
-        <ImageView
-            android:id="@+id/ivIcon"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tvModuleCode"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_menu_book_24"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingHorizontal="5dp"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvModuleCode"
-            android:layout_width="236dp"
-            android:layout_height="30dp"
-            android:textSize="20sp"
+            android:id="@+id/tvModuleTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="5dp"
             android:textColor="#ffffff"
-            android:paddingStart="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ivIcon"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvModuleCode" />
+
+        <TextView
+            android:id="@+id/tvModuleSemesters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="5dp"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvModuleTitle" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

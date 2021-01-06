@@ -15,12 +15,14 @@ class RecyclerAdapter(modules: MutableList<Module>) : RecyclerView.Adapter<Recyc
     private var modules: MutableList<Module> = modules
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var itemImage: ImageView
         var moduleCode: TextView
+        var title: TextView
+        var semesters: TextView
 
         init {
-            itemImage = itemView.findViewById(R.id.ivIcon)
             moduleCode = itemView.findViewById(R.id.tvModuleCode)
+            title = itemView.findViewById(R.id.tvModuleTitle)
+            semesters = itemView.findViewById(R.id.tvModuleSemesters)
 
             itemView.setOnClickListener {
                 val position: Int = adapterPosition
@@ -30,13 +32,14 @@ class RecyclerAdapter(modules: MutableList<Module>) : RecyclerView.Adapter<Recyc
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.card_layout, parent, false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.card_layout, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.moduleCode.text = modules[position].moduleCode
+        holder.title.text = modules[position].title
+        holder.semesters.text = semestersToString(modules[position].semesters)
     }
 
     override fun getItemCount(): Int {
@@ -47,5 +50,13 @@ class RecyclerAdapter(modules: MutableList<Module>) : RecyclerView.Adapter<Recyc
         modules.clear()
         modules.addAll(newData)
         notifyDataSetChanged()
+    }
+
+    private fun semestersToString(semesters: List<Int>): String {
+        var result = ""
+        for (semester in semesters) {
+            result += "Sem ${semester} | "
+        }
+        return result.substring(0, result.length - 2)
     }
 }

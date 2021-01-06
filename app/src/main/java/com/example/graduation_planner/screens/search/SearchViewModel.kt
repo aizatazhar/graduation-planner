@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.graduation_planner.models.Module
-import com.example.graduation_planner.models.SampleModules
 import com.google.gson.GsonBuilder
 import okhttp3.*
 import java.io.IOException
@@ -18,13 +17,7 @@ class SearchViewModel(private val moduleListJsonString: String) : ViewModel() {
 
     init {
         moduleList = jsonStringToModuleList()
-        _displayList.value = fetchSampleData()
-    }
-
-    private fun fetchSampleData(): MutableList<Module> {
-        val result: MutableList<Module> = mutableListOf()
-        result.addAll(SampleModules.getSampleModules())
-        return result
+        _displayList.value = mutableListOf()
     }
 
     private fun fetchJsonFromApi(moduleQuery: String) {
@@ -47,13 +40,15 @@ class SearchViewModel(private val moduleListJsonString: String) : ViewModel() {
     }
 
     fun filterModules(query: String) {
+        val newDisplayList: MutableList<Module> = mutableListOf()
         val filteredList = moduleList.filter { module ->
             val uppercaseQuery = query.toUpperCase()
             module.moduleCode.toUpperCase().contains(uppercaseQuery)
                     || module.title.toUpperCase().contains(uppercaseQuery)
         }
+        newDisplayList.addAll(filteredList)
 
-        _displayList.value = filteredList as MutableList<Module>?
+        _displayList.value = newDisplayList
     }
 
     private fun jsonStringToModuleList() : List<Module> {
