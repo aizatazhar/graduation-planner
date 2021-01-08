@@ -7,9 +7,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduation_planner.R
+import com.example.graduation_planner.database.Modular
+import com.example.graduation_planner.database.SavedModulesDatabase
 import com.example.graduation_planner.models.Module
 
-class SearchRecyclerAdapter(var modules: MutableList<Module>) : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHolder>() {
+class SearchRecyclerAdapter(var addModuleCallback: (module: Module) -> Unit, var modules: MutableList<Module>) : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var moduleCode: TextView
         var title: TextView
@@ -22,7 +24,8 @@ class SearchRecyclerAdapter(var modules: MutableList<Module>) : RecyclerView.Ada
 
             itemView.setOnClickListener {
                 val position: Int = adapterPosition
-                Toast.makeText(itemView.context, "Clicked on ${modules[position].moduleCode}", Toast.LENGTH_LONG).show()
+                Toast.makeText(itemView.context, "Added ${modules[position].moduleCode}", Toast.LENGTH_LONG).show()
+                addModuleCallback(modules[position])
             }
         }
     }

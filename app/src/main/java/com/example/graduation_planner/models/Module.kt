@@ -1,25 +1,32 @@
 package com.example.graduation_planner.models
 
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.lang.reflect.Constructor
 
+@Entity(tableName = "saved_modules")
 data class Module(
-        @SerializedName("moduleCode")
-        val moduleCode: String,
+        @PrimaryKey(autoGenerate = false) @SerializedName("moduleCode")
+        var moduleCode: String = "x",
 
         @SerializedName("title")
-        val title: String = "",
+        var title: String = "x",
 
         @SerializedName("moduleCredit")
-        val moduleCredit: Int,
+        var moduleCredit: Int = -1,
 
-        @SerializedName("semesters")
-        val semesters: List<Int> = listOf(),
+        @Ignore @SerializedName("semesters")
+        var semesters: List<Int> = listOf(),
 
-        @SerializedName("semesterData")
-        val semesterData: List<SemesterData> = listOf()
-)
+        @Ignore @SerializedName("semesterData")
+        var semesterData: List<SemesterData> = listOf()
+) {
+        constructor(): this("", "", -1, listOf(), listOf())
+}
 
 data class SemesterData(
         @SerializedName("semester")
-        val semester: Int
+        val semester: Int = -1
 )

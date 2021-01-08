@@ -22,12 +22,13 @@ class SearchFragment : Fragment() {
 
         // Read moduleList.json and pass the string as an argument to our view model
         val moduleListJsonString = readJsonFromAsset("moduleList.json")
-        val viewModelFactory = SearchViewModelFactory(moduleListJsonString)
+        val application = requireNotNull(this.activity).application
+        val viewModelFactory = SearchViewModelFactory(application, moduleListJsonString)
         viewModel = ViewModelProvider(this, viewModelFactory).get(SearchViewModel::class.java)
 
         // Set up our RecyclerView
         recyclerView = root.findViewById(R.id.rvModules)
-        searchRecyclerAdapter = SearchRecyclerAdapter(viewModel.displayList.value!!)
+        searchRecyclerAdapter = SearchRecyclerAdapter(viewModel::addModuleToDatabase, viewModel.displayList.value!!)
         recyclerView.adapter = searchRecyclerAdapter
 
         // Handle search bar logic
