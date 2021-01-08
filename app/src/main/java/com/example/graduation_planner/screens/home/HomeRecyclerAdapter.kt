@@ -38,4 +38,9 @@ class HomeRecyclerAdapter(var deleteModuleCallback: (module: Module) -> Unit, va
     override fun getItemCount(): Int {
         return modules.size
     }
+
+    fun submitList(newData: List<Module>) {
+        modules = newData
+        notifyDataSetChanged()
+    }
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduation_planner.R
@@ -30,6 +31,10 @@ class HomeFragment : Fragment() {
         recyclerView = root.findViewById(R.id.rvModulesAdded)
         homeRecyclerAdapter = HomeRecyclerAdapter(viewModel::deleteModule, viewModel.modules)
         recyclerView.adapter = homeRecyclerAdapter
+
+        viewModel.liveModules.observe(viewLifecycleOwner, Observer {
+            homeRecyclerAdapter.submitList(viewModel.liveModules.value!!)
+        })
 
         val tvUlr: TextView = root.findViewById(R.id.tvUlr)
         tvUlr.text = getString(R.string.tvUlrText, viewModel.satisfiesUlr.toString())
