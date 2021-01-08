@@ -10,6 +10,8 @@ import android.widget.*
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduation_planner.R
+import com.example.graduation_planner.screens.search.SearchViewModel
+import com.example.graduation_planner.screens.search.SearchViewModelFactory
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class HomeFragment : Fragment() {
@@ -20,11 +22,13 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.home_fragment, container, false)
 
-        viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+        val application = requireNotNull(this.activity).application
+        val viewModelFactory = HomeViewModelFactory(application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
 
         // Set up our RecyclerView
         recyclerView = root.findViewById(R.id.rvModulesAdded)
-        homeRecyclerAdapter = HomeRecyclerAdapter(viewModel.modules)
+        homeRecyclerAdapter = HomeRecyclerAdapter(viewModel::deleteModule, viewModel.modules)
         recyclerView.adapter = homeRecyclerAdapter
 
         val tvUlr: TextView = root.findViewById(R.id.tvUlr)

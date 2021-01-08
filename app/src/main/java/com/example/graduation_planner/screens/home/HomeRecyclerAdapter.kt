@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.graduation_planner.R
 import com.example.graduation_planner.models.Module
 
-class HomeRecyclerAdapter(var modules: List<Module>) : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>() {
+class HomeRecyclerAdapter(var deleteModuleCallback: (module: Module) -> Unit, var modules: List<Module>) : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var moduleCode: TextView
         var title: TextView
@@ -31,7 +31,7 @@ class HomeRecyclerAdapter(var modules: List<Module>) : RecyclerView.Adapter<Home
         holder.moduleCode.text = modules[position].moduleCode
         holder.title.text = modules[position].title
         holder.iconButton.setOnClickListener {
-            println("Clear button pressed for ${modules[position]}")
+            deleteModuleCallback(modules[position])
         }
     }
 

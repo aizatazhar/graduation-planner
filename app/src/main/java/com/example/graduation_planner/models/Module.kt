@@ -9,10 +9,10 @@ import java.lang.reflect.Constructor
 @Entity(tableName = "saved_modules")
 data class Module(
         @PrimaryKey(autoGenerate = false) @SerializedName("moduleCode")
-        var moduleCode: String = "x",
+        var moduleCode: String = "",
 
         @SerializedName("title")
-        var title: String = "x",
+        var title: String = "",
 
         @SerializedName("moduleCredit")
         var moduleCredit: Int = -1,

@@ -1,12 +1,15 @@
 package com.example.graduation_planner.screens.home
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import com.example.graduation_planner.database.SavedModulesDao
+import com.example.graduation_planner.database.SavedModulesDatabase
 import com.example.graduation_planner.models.GraduationRequirements
 import com.example.graduation_planner.models.Module
-import com.example.graduation_planner.models.SampleModules
 
-class HomeViewModel : ViewModel() {
-    val modules: List<Module> = SampleModules.getSampleModules()
+class HomeViewModel(application: Application) : AndroidViewModel(application) {
+    private val dao: SavedModulesDao = SavedModulesDatabase.getInstance(application).savedModulesDao
+    val modules: List<Module> = dao.getAll()
     val satisfiesUlr: Boolean = GraduationRequirements.satisfiesUniversityLevelRequirements(modules)
     val satisfiesCsFoundations: Boolean = GraduationRequirements.satisfiesComputerScienceFoundations(modules)
     val satisfiesCsBreadthAndDepth: Boolean = GraduationRequirements.satisfiesComputerScienceBreadthAndDepth(modules)
@@ -14,4 +17,12 @@ class HomeViewModel : ViewModel() {
     val satisfiesItProfessionalism: Boolean = GraduationRequirements.satisfiesItProfessionalism(modules)
     val satisfiesMathematicsAndSciences: Boolean = GraduationRequirements.satisfiesMathematicsAndSciences(modules)
     val satisfiesCredits: Boolean = GraduationRequirements.satisfiesCredits(modules)
+
+    fun deleteModule(module: Module) {
+        dao.delete(module)
+    }
+
+    fun clearAllModules() {
+        dao.clear()
+    }
 }
