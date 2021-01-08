@@ -24,7 +24,6 @@ class SearchViewModel(application: Application, private val moduleListJsonString
         moduleList = jsonStringToModuleList()
         _displayList.value = mutableListOf()
         dao = SavedModulesDatabase.getInstance(application).savedModulesDao
-        println(dao.getAll())
     }
 
     private fun fetchJsonFromApi(moduleQuery: String) {
@@ -41,7 +40,6 @@ class SearchViewModel(application: Application, private val moduleListJsonString
                 val body = response.body?.string()
                 val gson = GsonBuilder().create()
                 val module: Module = gson.fromJson(body, Module::class.java)
-                val x = (module.semesterData)
             }
         })
     }
