@@ -11,15 +11,9 @@ import com.example.graduation_planner.models.Module
 
 class HomeRecyclerAdapter(var deleteModuleCallback: (module: Module) -> Unit, var modules: List<Module>) : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var moduleCode: TextView
-        var title: TextView
-        var iconButton: ImageView
-
-        init {
-            moduleCode = itemView.findViewById(R.id.tvModuleCode)
-            title = itemView.findViewById(R.id.tvModuleTitle)
-            iconButton = itemView.findViewById(R.id.ivClearButton)
-        }
+        var moduleCode: TextView = itemView.findViewById(R.id.tvModuleCode)
+        var title: TextView = itemView.findViewById(R.id.tvModuleTitle)
+        var iconButton: ImageView = itemView.findViewById(R.id.ivClearButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeRecyclerAdapter.ViewHolder {

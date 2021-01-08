@@ -7,21 +7,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduation_planner.R
-import com.example.graduation_planner.database.Modular
-import com.example.graduation_planner.database.SavedModulesDatabase
 import com.example.graduation_planner.models.Module
 
 class SearchRecyclerAdapter(var addModuleCallback: (module: Module) -> Unit, var modules: MutableList<Module>) : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var moduleCode: TextView
-        var title: TextView
-        var semesters: TextView
+        var moduleCode: TextView = itemView.findViewById(R.id.tvModuleCode)
+        var title: TextView = itemView.findViewById(R.id.tvModuleTitle)
+        var semesters: TextView = itemView.findViewById(R.id.tvModuleSemesters)
 
         init {
-            moduleCode = itemView.findViewById(R.id.tvModuleCode)
-            title = itemView.findViewById(R.id.tvModuleTitle)
-            semesters = itemView.findViewById(R.id.tvModuleSemesters)
-
             itemView.setOnClickListener {
                 val position: Int = adapterPosition
                 Toast.makeText(itemView.context, "Added ${modules[position].moduleCode}", Toast.LENGTH_LONG).show()
@@ -54,7 +48,7 @@ class SearchRecyclerAdapter(var addModuleCallback: (module: Module) -> Unit, var
     private fun semestersToString(semesters: List<Int>): String {
         var result = ""
         for (semester in semesters) {
-            result += "Sem ${semester} | "
+            result += "Sem $semester | "
         }
         return result.substring(0, result.length - 2)
     }

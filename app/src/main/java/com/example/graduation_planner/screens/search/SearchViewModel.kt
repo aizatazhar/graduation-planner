@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.graduation_planner.database.Modular
 import com.example.graduation_planner.database.SavedModulesDao
 import com.example.graduation_planner.database.SavedModulesDatabase
 import com.example.graduation_planner.models.Module

@@ -4,11 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.graduation_planner.models.Module
 
-
 @Dao
 interface SavedModulesDao {
     @Query("SELECT * FROM saved_modules")
-    fun getAllModules(): LiveData<List<Module>>
+    fun getAll(): LiveData<List<Module>>
 
     @Delete
     fun delete(module: Module)
