@@ -13,11 +13,11 @@ class GraduationRequirements {
         }
 
         fun satisfiesUniversityLevelRequirements(modules: List<Module>): Boolean {
-            var satisfiesGer: Boolean = false;
-            var satisfiesGeq: Boolean = false;
-            var satisfiesGeh: Boolean = false;
-            var satisfiesGet: Boolean = false;
-            var satisfiesGes: Boolean = false;
+            var satisfiesGer = false
+            var satisfiesGeq = false
+            var satisfiesGeh = false
+            var satisfiesGet = false
+            var satisfiesGes = false
 
             for (module: Module in modules) {
                 when (module.moduleCode.substring(0, 3)) {
@@ -93,7 +93,7 @@ class GraduationRequirements {
         }
 
         fun satisfiesCredits(modules: List<Module>): Boolean {
-            var totalCreditsEarned: Int = 0
+            var totalCreditsEarned = 0
             for (module: Module in modules) {
                 totalCreditsEarned += module.moduleCredit
             }

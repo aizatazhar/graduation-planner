@@ -11,8 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduation_planner.R
-import com.example.graduation_planner.screens.search.SearchViewModel
-import com.example.graduation_planner.screens.search.SearchViewModelFactory
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class HomeFragment : Fragment() {

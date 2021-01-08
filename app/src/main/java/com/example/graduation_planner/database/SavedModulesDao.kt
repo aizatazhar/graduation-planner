@@ -17,6 +17,4 @@ interface SavedModulesDao {
 
     @Query("DELETE FROM saved_modules")
     fun clear()
-
-
 }
