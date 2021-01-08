@@ -14,7 +14,7 @@ import com.example.graduation_planner.R
 class SearchFragment : Fragment() {
     private lateinit var viewModel: SearchViewModel
     private lateinit var recyclerView: RecyclerView
-    private lateinit var recyclerAdapter: RecyclerAdapter
+    private lateinit var searchRecyclerAdapter: SearchRecyclerAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -27,8 +27,8 @@ class SearchFragment : Fragment() {
 
         // Set up our RecyclerView
         recyclerView = root.findViewById(R.id.rvModules)
-        recyclerAdapter = RecyclerAdapter(viewModel.displayList.value!!)
-        recyclerView.adapter = recyclerAdapter
+        searchRecyclerAdapter = SearchRecyclerAdapter(viewModel.displayList.value!!)
+        recyclerView.adapter = searchRecyclerAdapter
 
         // Handle search bar logic
         val searchBar = root.findViewById<SearchView>(R.id.svSearchBar)
@@ -51,7 +51,7 @@ class SearchFragment : Fragment() {
 
         // Observe the LiveData of filtered modules and update our RecyclerView accordingly
         viewModel.displayList.observe(viewLifecycleOwner, Observer {
-            recyclerAdapter.submitList(it)
+            searchRecyclerAdapter.submitList(it)
         })
 
         return root

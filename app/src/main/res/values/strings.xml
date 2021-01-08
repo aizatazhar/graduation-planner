@@ -9,4 +9,5 @@
     <string name="tvCreditsText">Satisfied Modular Credits Requirement: %s</string>
     <string name="fabAddModuleDescription">Button to add a module</string>
     <string name="fabAddModuleText">Add Module</string>
+    <string name="clear_button">Clear button</string>
 </resources>

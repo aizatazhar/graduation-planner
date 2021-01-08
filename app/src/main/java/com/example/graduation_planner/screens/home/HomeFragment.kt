@@ -6,23 +6,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.example.graduation_planner.R
-import com.example.graduation_planner.models.GraduationRequirements
-import com.example.graduation_planner.models.SampleModules
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 
 class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var homeRecyclerAdapter: HomeRecyclerAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.home_fragment, container, false)
 
         viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+
+        // Set up our RecyclerView
+        recyclerView = root.findViewById(R.id.rvModulesAdded)
+        homeRecyclerAdapter = HomeRecyclerAdapter(viewModel.modules)
+        recyclerView.adapter = homeRecyclerAdapter
 
         val tvUlr: TextView = root.findViewById(R.id.tvUlr)
         tvUlr.text = getString(R.string.tvUlrText, viewModel.satisfiesUlr.toString())

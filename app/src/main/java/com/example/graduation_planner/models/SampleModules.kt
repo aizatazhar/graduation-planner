@@ -5,18 +5,18 @@ class SampleModules {
         fun getSampleModules() : List<Module> {
             return listOf(
                     // Y1S1
-                    Module("CS1101S", moduleCredit = 4),
-                    Module("CS1231S", moduleCredit = 44),
-                    Module("MA1521", moduleCredit = 4),
-                    Module("GEH1043", moduleCredit = 4),
-                    Module("IS1103", moduleCredit = 4),
+                    Module("CS1101S", "Programming Methodology",  moduleCredit = 4),
+                    Module("CS1231S", "Discrete Structures", moduleCredit = 44),
+                    Module("MA1521", "Calculus for Computing", moduleCredit = 4),
+                    Module("GEH1043", "Microbes Which Changed Human History", moduleCredit = 4),
+                    Module("IS1103", "Ethics in Computing", moduleCredit = 4),
 
                     // Y1S2
-                    Module("CS2030", moduleCredit = 4),
-                    Module("CS2040S", moduleCredit = 4),
-                    Module("MA1101R", moduleCredit = 4),
-                    Module("LSM1106", moduleCredit = 4),
-                    Module("GER1000", moduleCredit = 4),
+                    Module("CS2030", "Programming Methodology", moduleCredit = 4),
+                    Module("CS2040S", "Data Structures & Algorithms", moduleCredit = 4),
+                    Module("MA1101R", "Linear Algebra", moduleCredit = 4),
+                    Module("LSM1106", "Molecular Genetics", moduleCredit = 4),
+                    Module("GER1000", "Quantitative Reasoning", moduleCredit = 4),
                     Module("GEQ1000", moduleCredit = 4),
 
                     // Y2S1

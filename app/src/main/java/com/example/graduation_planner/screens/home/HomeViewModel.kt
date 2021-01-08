@@ -6,7 +6,7 @@ import com.example.graduation_planner.models.Module
 import com.example.graduation_planner.models.SampleModules
 
 class HomeViewModel : ViewModel() {
-    private val modules: List<Module> = SampleModules.getSampleModules()
+    val modules: List<Module> = SampleModules.getSampleModules()
     val satisfiesUlr: Boolean = GraduationRequirements.satisfiesUniversityLevelRequirements(modules)
     val satisfiesCsFoundations: Boolean = GraduationRequirements.satisfiesComputerScienceFoundations(modules)
     val satisfiesCsBreadthAndDepth: Boolean = GraduationRequirements.satisfiesComputerScienceBreadthAndDepth(modules)

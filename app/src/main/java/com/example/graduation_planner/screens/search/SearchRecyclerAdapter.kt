@@ -3,17 +3,13 @@ package com.example.graduation_planner.screens.search
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduation_planner.R
 import com.example.graduation_planner.models.Module
 
-class RecyclerAdapter(modules: MutableList<Module>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
-
-    private var modules: MutableList<Module> = modules
-
+class SearchRecyclerAdapter(var modules: MutableList<Module>) : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var moduleCode: TextView
         var title: TextView
