@@ -4,11 +4,9 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-class SearchViewModelFactory(
-        private val application: Application,
-        private val moduleListJsonString: String) : ViewModelProvider.Factory {
+class SearchViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return SearchViewModel(application, moduleListJsonString) as T
+        return SearchViewModel(application) as T
     }
 }

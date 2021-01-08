@@ -20,10 +20,9 @@ class SearchFragment : Fragment() {
         // Inflate the layout for this fragment
         val root: View = inflater.inflate(R.layout.search_fragment, container, false)
 
-        // Read moduleList.json and pass the string as an argument to our view model
-        val moduleListJsonString = readJsonFromAsset("moduleList.json")
+        // Set up our view model
         val application = requireNotNull(this.activity).application
-        val viewModelFactory = SearchViewModelFactory(application, moduleListJsonString)
+        val viewModelFactory = SearchViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(SearchViewModel::class.java)
 
         // Set up our RecyclerView
@@ -56,11 +55,5 @@ class SearchFragment : Fragment() {
         })
 
         return root
-    }
-
-    private fun readJsonFromAsset(fileName: String) : String {
-        return requireActivity().assets.open(fileName).bufferedReader().use {
-            it.readText()
-        }
     }
 }

@@ -11,7 +11,7 @@ import com.google.gson.GsonBuilder
 import okhttp3.*
 import java.io.IOException
 
-class SearchViewModel(application: Application, private val moduleListJsonString: String) : AndroidViewModel(application) {
+class SearchViewModel(application: Application) : AndroidViewModel(application) {
     private val moduleList: List<Module>
     private val _displayList = MutableLiveData<MutableList<Module>>()
     val displayList: LiveData<MutableList<Module>>
@@ -23,6 +23,31 @@ class SearchViewModel(application: Application, private val moduleListJsonString
         moduleList = jsonStringToModuleList()
         _displayList.value = mutableListOf()
         dao = SavedModulesDatabase.getInstance(application).savedModulesDao
+    }
+
+    fun filterModules(query: String) {
+        val newDisplayList: MutableList<Module> = mutableListOf()
+        val filteredList = moduleList.filter { module ->
+            val uppercaseQuery = query.toUpperCase()
+            module.moduleCode.toUpperCase().contains(uppercaseQuery)
+                    || module.title.toUpperCase().contains(uppercaseQuery)
+        }
+        newDisplayList.addAll(filteredList)
+
+        _displayList.value = newDisplayList
+    }
+
+    private fun jsonStringToModuleList() : List<Module> {
+        val jsonString = getApplication<Application>().assets.open("moduleList.json").bufferedReader().use {
+            it.readText()
+        }
+        val gson = GsonBuilder().create()
+
+        return gson.fromJson(jsonString, Array<Module>::class.java).toList()
+    }
+
+    fun addModuleToDatabase(module: Module) {
+        dao.insert(module)
     }
 
     private fun fetchJsonFromApi(moduleQuery: String) {
@@ -39,29 +64,9 @@ class SearchViewModel(application: Application, private val moduleListJsonString
                 val body = response.body?.string()
                 val gson = GsonBuilder().create()
                 val module: Module = gson.fromJson(body, Module::class.java)
+                println(module)
             }
         })
-    }
-
-    fun filterModules(query: String) {
-        val newDisplayList: MutableList<Module> = mutableListOf()
-        val filteredList = moduleList.filter { module ->
-            val uppercaseQuery = query.toUpperCase()
-            module.moduleCode.toUpperCase().contains(uppercaseQuery)
-                    || module.title.toUpperCase().contains(uppercaseQuery)
-        }
-        newDisplayList.addAll(filteredList)
-
-        _displayList.value = newDisplayList
-    }
-
-    private fun jsonStringToModuleList() : List<Module> {
-        val gson = GsonBuilder().create()
-        return gson.fromJson(moduleListJsonString, Array<Module>::class.java).toList()
-    }
-
-    fun addModuleToDatabase(module: Module) {
-        dao.insert(module)
     }
 
     fun clearSavedModules() {
