@@ -31,6 +31,11 @@ class SearchFragment : Fragment() {
         searchRecyclerAdapter = SearchRecyclerAdapter(viewModel::addModuleToDatabase, viewModel.displayList.value!!)
         recyclerView.adapter = searchRecyclerAdapter
 
+        // Observe the LiveData of filtered modules and update our RecyclerView accordingly
+        viewModel.displayList.observe(viewLifecycleOwner, Observer {
+            searchRecyclerAdapter.submitList(it)
+        })
+
         // Handle search bar logic
         val searchBar = root.findViewById<SearchView>(R.id.svSearchBar)
         searchBar.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
@@ -48,11 +53,6 @@ class SearchFragment : Fragment() {
                 }
                 return true
             }
-        })
-
-        // Observe the LiveData of filtered modules and update our RecyclerView accordingly
-        viewModel.displayList.observe(viewLifecycleOwner, Observer {
-            searchRecyclerAdapter.submitList(it)
         })
 
         return root
