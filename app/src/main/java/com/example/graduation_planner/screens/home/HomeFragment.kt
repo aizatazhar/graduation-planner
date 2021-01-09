@@ -41,32 +41,32 @@ class HomeFragment : Fragment() {
         })
 
         val tvCsFoundations: TextView = root.findViewById(R.id.tvCsFoundations)
-        viewModel.ulr.observe(viewLifecycleOwner, Observer {
+        viewModel.csFoundations.observe(viewLifecycleOwner, Observer {
             tvCsFoundations.text = getString(R.string.tvCsFoundationsText, viewModel.csFoundations.value.toString())
         })
 
         val tvCsBreadthAndDepth: TextView = root.findViewById(R.id.tvCsBreadthAndDepth)
-        viewModel.ulr.observe(viewLifecycleOwner, Observer {
+        viewModel.csBreadthAndDepth.observe(viewLifecycleOwner, Observer {
             tvCsBreadthAndDepth.text = getString(R.string.tvCsBreadthAndDepthText, viewModel.csBreadthAndDepth.value.toString())
         })
 
         val tvIndustrialExperience: TextView = root.findViewById(R.id.tvIndustrialExperience)
-        viewModel.ulr.observe(viewLifecycleOwner, Observer {
+        viewModel.industrialExperience.observe(viewLifecycleOwner, Observer {
             tvIndustrialExperience.text = getString(R.string.tvIndustrialExperienceText, viewModel.industrialExperience.value.toString())
         })
 
         val tvItProfessionalism: TextView = root.findViewById(R.id.tvItProfessionalism)
-        viewModel.ulr.observe(viewLifecycleOwner, Observer {
+        viewModel.itProfessionalism.observe(viewLifecycleOwner, Observer {
             tvItProfessionalism.text = getString(R.string.tvItProfessionalismText, viewModel.itProfessionalism.value.toString())
         })
 
         val tvMathematicsAndSciences: TextView = root.findViewById(R.id.tvMathematicsAndSciences)
-        viewModel.ulr.observe(viewLifecycleOwner, Observer {
+        viewModel.mathematicsAndSciences.observe(viewLifecycleOwner, Observer {
             tvMathematicsAndSciences.text = getString(R.string.tvMathematicsAndSciencesText, viewModel.mathematicsAndSciences.value.toString())
         })
 
         val tvCredits: TextView = root.findViewById(R.id.tvCredits)
-        viewModel.ulr.observe(viewLifecycleOwner, Observer {
+        viewModel.credits.observe(viewLifecycleOwner, Observer {
             tvCredits.text = getString(R.string.tvCreditsText, viewModel.credits.value.toString())
         })
 
