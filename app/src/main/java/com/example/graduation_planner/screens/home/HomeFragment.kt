@@ -32,28 +32,43 @@ class HomeFragment : Fragment() {
 
         viewModel.liveModules.observe(viewLifecycleOwner, Observer {
             homeRecyclerAdapter.submitList(viewModel.liveModules.value!!)
+            viewModel.recalculateGraduationRequirements() // Need to recalculate every time a new module is added or deleted
         })
 
         val tvUlr: TextView = root.findViewById(R.id.tvUlr)
-        tvUlr.text = getString(R.string.tvUlrText, viewModel.satisfiesUlr.toString())
+        viewModel.ulr.observe(viewLifecycleOwner, Observer {
+            tvUlr.text = getString(R.string.tvUlrText, viewModel.ulr.value.toString())
+        })
 
         val tvCsFoundations: TextView = root.findViewById(R.id.tvCsFoundations)
-        tvCsFoundations.text = getString(R.string.tvCsFoundationsText, viewModel.satisfiesCsFoundations.toString())
+        viewModel.ulr.observe(viewLifecycleOwner, Observer {
+            tvCsFoundations.text = getString(R.string.tvCsFoundationsText, viewModel.csFoundations.value.toString())
+        })
 
         val tvCsBreadthAndDepth: TextView = root.findViewById(R.id.tvCsBreadthAndDepth)
-        tvCsBreadthAndDepth.text = getString(R.string.tvCsBreadthAndDepthText, viewModel.satisfiesCsBreadthAndDepth.toString())
+        viewModel.ulr.observe(viewLifecycleOwner, Observer {
+            tvCsBreadthAndDepth.text = getString(R.string.tvCsBreadthAndDepthText, viewModel.csBreadthAndDepth.value.toString())
+        })
 
         val tvIndustrialExperience: TextView = root.findViewById(R.id.tvIndustrialExperience)
-        tvIndustrialExperience.text = getString(R.string.tvIndustrialExperienceText, viewModel.satisfiesIndustrialExperience.toString())
+        viewModel.ulr.observe(viewLifecycleOwner, Observer {
+            tvIndustrialExperience.text = getString(R.string.tvIndustrialExperienceText, viewModel.industrialExperience.value.toString())
+        })
 
         val tvItProfessionalism: TextView = root.findViewById(R.id.tvItProfessionalism)
-        tvItProfessionalism.text = getString(R.string.tvItProfessionalismText, viewModel.satisfiesItProfessionalism.toString())
+        viewModel.ulr.observe(viewLifecycleOwner, Observer {
+            tvItProfessionalism.text = getString(R.string.tvItProfessionalismText, viewModel.itProfessionalism.value.toString())
+        })
 
         val tvMathematicsAndSciences: TextView = root.findViewById(R.id.tvMathematicsAndSciences)
-        tvMathematicsAndSciences.text = getString(R.string.tvMathematicsAndSciencesText, viewModel.satisfiesMathematicsAndSciences.toString())
+        viewModel.ulr.observe(viewLifecycleOwner, Observer {
+            tvMathematicsAndSciences.text = getString(R.string.tvMathematicsAndSciencesText, viewModel.mathematicsAndSciences.value.toString())
+        })
 
         val tvCredits: TextView = root.findViewById(R.id.tvCredits)
-        tvCredits.text = getString(R.string.tvCreditsText, viewModel.satisfiesCredits.toString())
+        viewModel.ulr.observe(viewLifecycleOwner, Observer {
+            tvCredits.text = getString(R.string.tvCreditsText, viewModel.credits.value.toString())
+        })
 
         val fabAddButton: ExtendedFloatingActionButton = root.findViewById(R.id.fabAddModule)
         fabAddButton.setOnClickListener {
