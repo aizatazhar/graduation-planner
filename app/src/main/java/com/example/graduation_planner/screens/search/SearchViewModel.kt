@@ -11,11 +11,11 @@ import com.example.graduation_planner.models.Module
 import com.example.graduation_planner.models.SemesterData
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.*
 import java.io.IOException
+import java.util.*
 
 class SearchViewModel(application: Application) : AndroidViewModel(application) {
     private val moduleList: List<Module>
@@ -34,9 +34,9 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     fun filterModules(query: String) {
         val newDisplayList: MutableList<Module> = mutableListOf()
         val filteredList = moduleList.filter { module ->
-            val uppercaseQuery = query.toUpperCase()
-            module.moduleCode.toUpperCase().contains(uppercaseQuery)
-                    || module.title.toUpperCase().contains(uppercaseQuery)
+            val uppercaseQuery = query.toUpperCase(Locale.getDefault())
+            module.moduleCode.toUpperCase(Locale.getDefault()).contains(uppercaseQuery)
+                    || module.title.toUpperCase(Locale.getDefault()).contains(uppercaseQuery)
         }
         newDisplayList.addAll(filteredList)
 
@@ -52,36 +52,38 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun fetchModuleFromApiAndInsertIntoDatabase(module: Module) {
-        viewModelScope.launch {
-            val moduleQuery = module.moduleCode
-            val academicYear = "2020-2021"
-            val url = "https://api.nusmods.com/v2/$academicYear/modules/$moduleQuery.json"
-            val request = Request.Builder().url(url).build()
-            val client = OkHttpClient()
+        val moduleQuery = module.moduleCode
+        val academicYear = "2020-2021"
+        val url = "https://api.nusmods.com/v2/$academicYear/modules/$moduleQuery.json"
+        val request = Request.Builder().url(url).build()
+        val client = OkHttpClient()
 
-            client.newCall(request).enqueue(object: Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    println("Failed to get response")
-                }
+        client.newCall(request).enqueue(object: Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                println("Failed to get response")
+            }
 
-                override fun onResponse(call: Call, response: Response) {
-                    val body = response.body?.string()
-                    val gson = GsonBuilder().create()
+            override fun onResponse(call: Call, response: Response) {
+                viewModelScope.launch {
+                    withContext(Dispatchers.IO) {
+                        val body = response.body?.string()
+                        val gson = GsonBuilder().create()
 
-                    val module: Module = gson.fromJson(body, Module::class.java)
-                    for (data: SemesterData in module.semesterData) {
-                        if (data.semester == 1) {
-                            module.inSemOne = true
+                        val moduleToAdd: Module = gson.fromJson(body, Module::class.java)
+                        for (data: SemesterData in moduleToAdd.semesterData) {
+                            if (data.semester == 1) {
+                                moduleToAdd.inSemOne = true
+                            }
+
+                            if (data.semester == 2) {
+                                moduleToAdd.inSemTwo = true
+                            }
                         }
-
-                        if (data.semester == 2) {
-                            module.inSemTwo = true
-                        }
+                        dao.insert(module)
                     }
-                    dao.insert(module)
                 }
-            })
-        }
+            }
+        })
     }
 
     fun clearSavedModules() {
