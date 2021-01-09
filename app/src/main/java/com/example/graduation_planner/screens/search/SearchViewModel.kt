@@ -4,10 +4,13 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.graduation_planner.database.SavedModulesDao
 import com.example.graduation_planner.database.SavedModulesDatabase
 import com.example.graduation_planner.models.Module
 import com.google.gson.GsonBuilder
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.*
 import java.io.IOException
 
@@ -20,7 +23,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     private val dao: SavedModulesDao
 
     init {
-        moduleList = jsonStringToModuleList()
+        moduleList = readModuleListJson()
         _displayList.value = mutableListOf()
         dao = SavedModulesDatabase.getInstance(application).savedModulesDao
     }
@@ -37,36 +40,35 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         _displayList.value = newDisplayList
     }
 
-    private fun jsonStringToModuleList() : List<Module> {
+    private fun readModuleListJson() : List<Module> {
         val jsonString = getApplication<Application>().assets.open("moduleList.json").bufferedReader().use {
             it.readText()
         }
         val gson = GsonBuilder().create()
-
         return gson.fromJson(jsonString, Array<Module>::class.java).toList()
     }
 
-    fun addModuleToDatabase(module: Module) {
-        dao.insert(module)
-    }
+    fun fetchModuleFromApiAndInsertIntoDatabase(module: Module) {
+        viewModelScope.launch {
+            val moduleQuery = module.moduleCode
+            val academicYear = "2020-2021"
+            val url = "https://api.nusmods.com/v2/$academicYear/modules/$moduleQuery.json"
+            val request = Request.Builder().url(url).build()
+            val client = OkHttpClient()
 
-    private fun fetchJsonFromApi(moduleQuery: String) {
-        val academicYear = "2020-2021"
-        val url = "https://api.nusmods.com/v2/$academicYear/modules/$moduleQuery.json"
-        val request = Request.Builder().url(url).build()
-        val client = OkHttpClient()
-        client.newCall(request).enqueue(object: Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                println("Failed to get response")
-            }
+            client.newCall(request).enqueue(object: Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    println("Failed to get response")
+                }
 
-            override fun onResponse(call: Call, response: Response) {
-                val body = response.body?.string()
-                val gson = GsonBuilder().create()
-                val module: Module = gson.fromJson(body, Module::class.java)
-                println(module)
-            }
-        })
+                override fun onResponse(call: Call, response: Response) {
+                    val body = response.body?.string()
+                    val gson = GsonBuilder().create()
+                    val module: Module = gson.fromJson(body, Module::class.java)
+                    dao.insert(module)
+                }
+            })
+        }
     }
 
     fun clearSavedModules() {

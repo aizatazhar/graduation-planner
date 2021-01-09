@@ -27,7 +27,8 @@ class SearchFragment : Fragment() {
 
         // Set up our RecyclerView
         recyclerView = root.findViewById(R.id.rvModules)
-        searchRecyclerAdapter = SearchRecyclerAdapter(viewModel::addModuleToDatabase, viewModel.displayList.value!!)
+        searchRecyclerAdapter = SearchRecyclerAdapter(viewModel::fetchModuleFromApiAndInsertIntoDatabase,
+                viewModel.displayList.value!!)
         recyclerView.adapter = searchRecyclerAdapter
 
         // Observe the LiveData of filtered modules and update our RecyclerView accordingly
