@@ -79,7 +79,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
                                 moduleToAdd.inSemTwo = true
                             }
                         }
-                        dao.insert(module)
+                        dao.insert(moduleToAdd)
                     }
                 }
             }

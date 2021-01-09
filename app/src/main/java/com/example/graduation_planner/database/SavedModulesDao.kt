@@ -12,7 +12,7 @@ interface SavedModulesDao {
     @Delete
     fun delete(module: Module)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(module: Module)
 
     @Query("DELETE FROM saved_modules")
