@@ -19,10 +19,14 @@ data class Module(
         @Ignore @SerializedName("semesters")
         var semesters: List<Int> = listOf(),
 
+        var inSemOne: Boolean = false,
+
+        var inSemTwo: Boolean = false,
+
         @Ignore @SerializedName("semesterData")
         var semesterData: List<SemesterData> = listOf()
 ) {
-        constructor(): this("", "", -1, listOf(), listOf())
+        constructor(): this("", "", -1, listOf(), false, false, listOf())
 }
 
 data class SemesterData(

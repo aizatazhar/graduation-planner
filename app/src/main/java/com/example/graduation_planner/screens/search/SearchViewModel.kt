@@ -8,9 +8,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.graduation_planner.database.SavedModulesDao
 import com.example.graduation_planner.database.SavedModulesDatabase
 import com.example.graduation_planner.models.Module
+import com.example.graduation_planner.models.SemesterData
 import com.google.gson.GsonBuilder
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.*
 import java.io.IOException
 
@@ -64,7 +67,17 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
                 override fun onResponse(call: Call, response: Response) {
                     val body = response.body?.string()
                     val gson = GsonBuilder().create()
+
                     val module: Module = gson.fromJson(body, Module::class.java)
+                    for (data: SemesterData in module.semesterData) {
+                        if (data.semester == 1) {
+                            module.inSemOne = true
+                        }
+
+                        if (data.semester == 2) {
+                            module.inSemTwo = true
+                        }
+                    }
                     dao.insert(module)
                 }
             })
