@@ -40,43 +40,43 @@ class HomeFragment : Fragment() {
 
         val tvUlr: TextView = root.findViewById(R.id.tvUlr)
         viewModel.ulr.observe(viewLifecycleOwner, Observer {
-            tvUlr.text = getString(R.string.tvUlrText, viewModel.ulr.value.toString())
+            tvUlr.text = getString(R.string.tvUlrText, if (viewModel.ulr.value!!) "Yes" else "No")
             setTextViewTextColour(tvUlr, viewModel.ulr.value!!)
         })
 
         val tvCsFoundations: TextView = root.findViewById(R.id.tvCsFoundations)
         viewModel.csFoundations.observe(viewLifecycleOwner, Observer {
-            tvCsFoundations.text = getString(R.string.tvCsFoundationsText, viewModel.csFoundations.value.toString())
+            tvCsFoundations.text = getString(R.string.tvCsFoundationsText, if (viewModel.csFoundations.value!!) "Yes" else "No")
             setTextViewTextColour(tvCsFoundations, viewModel.csFoundations.value!!)
         })
 
         val tvCsBreadthAndDepth: TextView = root.findViewById(R.id.tvCsBreadthAndDepth)
         viewModel.csBreadthAndDepth.observe(viewLifecycleOwner, Observer {
-            tvCsBreadthAndDepth.text = getString(R.string.tvCsBreadthAndDepthText, viewModel.csBreadthAndDepth.value.toString())
+            tvCsBreadthAndDepth.text = getString(R.string.tvCsBreadthAndDepthText, if (viewModel.csBreadthAndDepth.value!!) "Yes" else "No")
             setTextViewTextColour(tvCsBreadthAndDepth, viewModel.csBreadthAndDepth.value!!)
         })
 
         val tvIndustrialExperience: TextView = root.findViewById(R.id.tvIndustrialExperience)
         viewModel.industrialExperience.observe(viewLifecycleOwner, Observer {
-            tvIndustrialExperience.text = getString(R.string.tvIndustrialExperienceText, viewModel.industrialExperience.value.toString())
+            tvIndustrialExperience.text = getString(R.string.tvIndustrialExperienceText, if (viewModel.industrialExperience.value!!) "Yes" else "No")
             setTextViewTextColour(tvIndustrialExperience, viewModel.industrialExperience.value!!)
         })
 
         val tvItProfessionalism: TextView = root.findViewById(R.id.tvItProfessionalism)
         viewModel.itProfessionalism.observe(viewLifecycleOwner, Observer {
-            tvItProfessionalism.text = getString(R.string.tvItProfessionalismText, viewModel.itProfessionalism.value.toString())
+            tvItProfessionalism.text = getString(R.string.tvItProfessionalismText, if (viewModel.itProfessionalism.value!!) "Yes" else "No")
             setTextViewTextColour(tvItProfessionalism, viewModel.itProfessionalism.value!!)
         })
 
         val tvMathematicsAndSciences: TextView = root.findViewById(R.id.tvMathematicsAndSciences)
         viewModel.mathematicsAndSciences.observe(viewLifecycleOwner, Observer {
-            tvMathematicsAndSciences.text = getString(R.string.tvMathematicsAndSciencesText, viewModel.mathematicsAndSciences.value.toString())
+            tvMathematicsAndSciences.text = getString(R.string.tvMathematicsAndSciencesText, if (viewModel.mathematicsAndSciences.value!!) "Yes" else "No")
             setTextViewTextColour(tvMathematicsAndSciences, viewModel.mathematicsAndSciences.value!!)
         })
 
         val tvCredits: TextView = root.findViewById(R.id.tvCredits)
         viewModel.credits.observe(viewLifecycleOwner, Observer {
-            tvCredits.text = getString(R.string.tvCreditsText, viewModel.credits.value.toString())
+            tvCredits.text = getString(R.string.tvCreditsText, if (viewModel.credits.value!!) "Yes" else "No")
             setTextViewTextColour(tvCredits, viewModel.credits.value!!)
         })
 
