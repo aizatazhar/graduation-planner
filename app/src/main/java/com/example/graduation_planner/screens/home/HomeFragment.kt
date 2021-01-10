@@ -1,5 +1,6 @@
 package com.example.graduation_planner.screens.home
 
+import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -17,6 +18,8 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var homeRecyclerAdapter: HomeRecyclerAdapter
+    private var notSatisfiedColour = Color.parseColor("#ab1100")
+    private var satisfiedColour = Color.parseColor("#00ab1c")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.home_fragment, container, false)
@@ -38,36 +41,43 @@ class HomeFragment : Fragment() {
         val tvUlr: TextView = root.findViewById(R.id.tvUlr)
         viewModel.ulr.observe(viewLifecycleOwner, Observer {
             tvUlr.text = getString(R.string.tvUlrText, viewModel.ulr.value.toString())
+            setTextViewTextColour(tvUlr, viewModel.ulr.value!!)
         })
 
         val tvCsFoundations: TextView = root.findViewById(R.id.tvCsFoundations)
         viewModel.csFoundations.observe(viewLifecycleOwner, Observer {
             tvCsFoundations.text = getString(R.string.tvCsFoundationsText, viewModel.csFoundations.value.toString())
+            setTextViewTextColour(tvCsFoundations, viewModel.csFoundations.value!!)
         })
 
         val tvCsBreadthAndDepth: TextView = root.findViewById(R.id.tvCsBreadthAndDepth)
         viewModel.csBreadthAndDepth.observe(viewLifecycleOwner, Observer {
             tvCsBreadthAndDepth.text = getString(R.string.tvCsBreadthAndDepthText, viewModel.csBreadthAndDepth.value.toString())
+            setTextViewTextColour(tvCsBreadthAndDepth, viewModel.csBreadthAndDepth.value!!)
         })
 
         val tvIndustrialExperience: TextView = root.findViewById(R.id.tvIndustrialExperience)
         viewModel.industrialExperience.observe(viewLifecycleOwner, Observer {
             tvIndustrialExperience.text = getString(R.string.tvIndustrialExperienceText, viewModel.industrialExperience.value.toString())
+            setTextViewTextColour(tvIndustrialExperience, viewModel.industrialExperience.value!!)
         })
 
         val tvItProfessionalism: TextView = root.findViewById(R.id.tvItProfessionalism)
         viewModel.itProfessionalism.observe(viewLifecycleOwner, Observer {
             tvItProfessionalism.text = getString(R.string.tvItProfessionalismText, viewModel.itProfessionalism.value.toString())
+            setTextViewTextColour(tvItProfessionalism, viewModel.itProfessionalism.value!!)
         })
 
         val tvMathematicsAndSciences: TextView = root.findViewById(R.id.tvMathematicsAndSciences)
         viewModel.mathematicsAndSciences.observe(viewLifecycleOwner, Observer {
             tvMathematicsAndSciences.text = getString(R.string.tvMathematicsAndSciencesText, viewModel.mathematicsAndSciences.value.toString())
+            setTextViewTextColour(tvMathematicsAndSciences, viewModel.mathematicsAndSciences.value!!)
         })
 
         val tvCredits: TextView = root.findViewById(R.id.tvCredits)
         viewModel.credits.observe(viewLifecycleOwner, Observer {
             tvCredits.text = getString(R.string.tvCreditsText, viewModel.credits.value.toString())
+            setTextViewTextColour(tvCredits, viewModel.credits.value!!)
         })
 
         val fabAddButton: ExtendedFloatingActionButton = root.findViewById(R.id.fabAddModule)
@@ -76,5 +86,13 @@ class HomeFragment : Fragment() {
         }
 
         return root
+    }
+
+    private fun setTextViewTextColour(textView: TextView, isSatisfied: Boolean) {
+        if (isSatisfied) {
+            textView.setTextColor(satisfiedColour)
+        } else {
+            textView.setTextColor(notSatisfiedColour)
+        }
     }
 }

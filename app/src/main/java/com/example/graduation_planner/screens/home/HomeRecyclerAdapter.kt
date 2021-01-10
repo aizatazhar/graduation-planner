@@ -23,7 +23,7 @@ class HomeRecyclerAdapter(var deleteModuleCallback: (module: Module) -> Unit, va
 
     override fun onBindViewHolder(holder: HomeRecyclerAdapter.ViewHolder, position: Int) {
         holder.moduleCode.text = modules[position].moduleCode
-        holder.title.text = modules[position].title
+        holder.title.text = "${modules[position].title} (${modules[position].moduleCredit} MCs)"
         holder.iconButton.setOnClickListener {
             deleteModuleCallback(modules[position])
         }
