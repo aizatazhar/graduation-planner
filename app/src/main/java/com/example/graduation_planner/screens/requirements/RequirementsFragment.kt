@@ -1,42 +1,31 @@
-package com.example.graduation_planner.screens.home
+package com.example.graduation_planner.screens.requirements
 
 import android.graphics.Color
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.TextView
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
-import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.ViewModelProvider
 import com.example.graduation_planner.R
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.example.graduation_planner.screens.module_list.ModuleListViewModel
+import com.example.graduation_planner.screens.module_list.ModuleListViewModelFactory
 
-class HomeFragment : Fragment() {
-    private lateinit var viewModel: HomeViewModel
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var homeRecyclerAdapter: HomeRecyclerAdapter
+class RequirementsFragment : Fragment() {
+    private lateinit var viewModel: ModuleListViewModel
     private var notSatisfiedColour = Color.parseColor("#ab1100")
     private var satisfiedColour = Color.parseColor("#00ab1c")
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val root = inflater.inflate(R.layout.home_fragment, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        val root = inflater.inflate(R.layout.fragment_requirements, container, false)
 
         val application = requireNotNull(this.activity).application
-        val viewModelFactory = HomeViewModelFactory(application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
-
-        // Set up our RecyclerView
-        recyclerView = root.findViewById(R.id.rvModulesAdded)
-        homeRecyclerAdapter = HomeRecyclerAdapter(viewModel::deleteModule, viewModel.modules)
-        recyclerView.adapter = homeRecyclerAdapter
-
-        viewModel.liveModules.observe(viewLifecycleOwner, Observer {
-            homeRecyclerAdapter.submitList(viewModel.liveModules.value!!)
-            viewModel.recalculateGraduationRequirements() // Need to recalculate every time a new module is added or deleted
-        })
+        val viewModelFactory = ModuleListViewModelFactory(application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ModuleListViewModel::class.java)
 
         val tvUlr: TextView = root.findViewById(R.id.tvUlr)
         viewModel.ulr.observe(viewLifecycleOwner, Observer {
@@ -80,12 +69,7 @@ class HomeFragment : Fragment() {
             setTextViewTextColour(tvCredits, viewModel.credits.value!!)
         })
 
-        val fabAddButton: ExtendedFloatingActionButton = root.findViewById(R.id.fabAddModule)
-        fabAddButton.setOnClickListener {
-            it.findNavController().navigate(R.id.action_home_to_searchFragment)
-        }
-
-        return root
+        return root;
     }
 
     private fun setTextViewTextColour(textView: TextView, isSatisfied: Boolean) {

@@ -1,4 +1,4 @@
-package com.example.graduation_planner.screens.home
+package com.example.graduation_planner.screens.module_list
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -11,7 +11,7 @@ import com.example.graduation_planner.models.GraduationRequirements
 import com.example.graduation_planner.models.Module
 import kotlinx.coroutines.launch
 
-class HomeViewModel(application: Application) : AndroidViewModel(application) {
+class ModuleListViewModel(application: Application) : AndroidViewModel(application) {
     private val dao: SavedModulesDao = SavedModulesDatabase.getInstance(application).savedModulesDao
 
     val modules: MutableList<Module> = mutableListOf()
