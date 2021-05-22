@@ -1,4 +1,4 @@
-package com.example.graduation_planner.screens.home
+package com.example.graduation_planner.screens.modules
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -11,7 +11,7 @@ import com.example.graduation_planner.models.GraduationRequirements
 import com.example.graduation_planner.models.Module
 import kotlinx.coroutines.launch
 
-class HomeViewModel(application: Application) : AndroidViewModel(application) {
+class ModulesViewModel(application: Application) : AndroidViewModel(application) {
     private val dao: SavedModulesDao = SavedModulesDatabase.getInstance(application).savedModulesDao
 
     val modules: MutableList<Module> = mutableListOf()
@@ -55,14 +55,14 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun recalculateGraduationRequirements() {
         viewModelScope.launch {
-            val modulesToCheck = liveModules.value!!
-            _ulr.value = GraduationRequirements.satisfiesUniversityLevelRequirements(modulesToCheck)
-            _csFoundations.value = GraduationRequirements.satisfiesComputerScienceFoundations(modulesToCheck)
-            _csBreadthAndDepth.value = GraduationRequirements.satisfiesComputerScienceBreadthAndDepth(modulesToCheck)
-            _industrialExperience.value = GraduationRequirements.satisfiesIndustrialExperienceRequirements(modulesToCheck)
-            _itProfessionalism.value = GraduationRequirements.satisfiesItProfessionalism(modulesToCheck)
-            _mathematicsAndSciences.value = GraduationRequirements.satisfiesMathematicsAndSciences(modulesToCheck)
-            _credits.value =  GraduationRequirements.satisfiesCredits(modulesToCheck)
+            val modules = liveModules.value!!
+            _ulr.value = GraduationRequirements.satisfiesUniversityLevelRequirements(modules)
+            _csFoundations.value = GraduationRequirements.satisfiesComputerScienceFoundations(modules)
+            _csBreadthAndDepth.value = GraduationRequirements.satisfiesComputerScienceBreadthAndDepth(modules)
+            _industrialExperience.value = GraduationRequirements.satisfiesIndustrialExperienceRequirements(modules)
+            _itProfessionalism.value = GraduationRequirements.satisfiesItProfessionalism(modules)
+            _mathematicsAndSciences.value = GraduationRequirements.satisfiesMathematicsAndSciences(modules)
+            _credits.value =  GraduationRequirements.satisfiesCredits(modules)
         }
     }
 }

@@ -7,9 +7,10 @@
     <string name="tvItProfessionalismText">Satisfied IT Professionalism: %s</string>
     <string name="tvMathematicsAndSciencesText">Satisfied Mathematics &amp; Sciences: %s</string>
     <string name="tvCreditsText">Satisfied Modular Credits Requirement: %s</string>
-    <string name="fabAddModuleDescription">Button to add a module</string>
+    <string name="fabAddModuleDescription">Add a module</string>
     <string name="fabAddModuleText">Add Module</string>
     <string name="clear_button">Clear button</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="saved_modules">Saved Modules</string>
 </resources>

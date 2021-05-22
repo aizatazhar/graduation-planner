@@ -1,4 +1,4 @@
-package com.example.graduation_planner.main
+package com.example.graduation_planner.screens.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,13 +8,12 @@ import android.view.ViewGroup
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.graduation_planner.R
-import com.example.graduation_planner.screens.home.HomeFragment
+import com.example.graduation_planner.screens.modules.ModulesFragment
+import com.example.graduation_planner.screens.requirements.RequirementsFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainFragment : Fragment() {
-    // When requested, this adapter returns a DemoObjectFragment,
-    // representing an object in the collection.
     private lateinit var mainFragmentAdapter: MainFragmentAdapter
     private lateinit var viewPager: ViewPager2
 
@@ -40,7 +39,7 @@ class MainFragment : Fragment() {
 }
 
 class MainFragmentAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
-    private val fragmentList = arrayListOf(HomeFragment(), HomeFragment())
+    private val fragmentList = arrayListOf(ModulesFragment(), RequirementsFragment())
 
     override fun getItemCount(): Int {
         return fragmentList.size
