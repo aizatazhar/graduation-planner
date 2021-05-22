@@ -4,7 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/home">
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.graduation_planner.main.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/main_fragment" />
 
     <fragment
         android:id="@+id/home"
@@ -21,5 +27,6 @@
         android:name="com.example.graduation_planner.screens.search.SearchFragment"
         android:label="Add a module"
         tools:layout="@layout/search_fragment" />
+
 
 </navigation>
