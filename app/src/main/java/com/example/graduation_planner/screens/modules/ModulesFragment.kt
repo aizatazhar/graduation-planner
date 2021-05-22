@@ -33,7 +33,7 @@ class ModulesFragment : Fragment() {
 
         val fabAddButton: ExtendedFloatingActionButton = root.findViewById(R.id.fabAddModule)
         fabAddButton.setOnClickListener {
-            it.findNavController().navigate(R.id.action_home_to_searchFragment)
+            it.findNavController().navigate(R.id.action_mainFragment_to_searchFragment)
         }
 
         return root

@@ -10,15 +10,16 @@
         android:id="@+id/mainFragment"
         android:name="com.example.graduation_planner.screens.main.MainFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/main_fragment" />
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/home"
         android:name="com.example.graduation_planner.screens.modules.ModulesFragment"
         tools:layout="@layout/modules_fragment" >
-        <action
-            android:id="@+id/action_home_to_searchFragment"
-            app:destination="@id/searchFragment" />
     </fragment>
 
     <fragment
