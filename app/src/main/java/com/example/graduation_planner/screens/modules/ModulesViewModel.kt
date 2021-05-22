@@ -17,31 +17,31 @@ class ModulesViewModel(application: Application) : AndroidViewModel(application)
     val modules: MutableList<Module> = mutableListOf()
     val liveModules: LiveData<List<Module>> = dao.getAll()
 
-    private val _ulr = MutableLiveData<Boolean>(false)
+    private val _ulr = MutableLiveData(false)
     val ulr: LiveData<Boolean>
         get() = _ulr
 
-    private val _csFoundations = MutableLiveData<Boolean>(false)
+    private val _csFoundations = MutableLiveData(false)
     val csFoundations: LiveData<Boolean>
         get() = _csFoundations
 
-    private val _csBreadthAndDepth = MutableLiveData<Boolean>(false)
+    private val _csBreadthAndDepth = MutableLiveData(false)
     val csBreadthAndDepth: LiveData<Boolean>
         get() = _csBreadthAndDepth
 
-    private val _industrialExperience = MutableLiveData<Boolean>(false)
+    private val _industrialExperience = MutableLiveData(false)
     val industrialExperience: LiveData<Boolean>
         get() = _industrialExperience
 
-    private val _itProfessionalism = MutableLiveData<Boolean>(false)
+    private val _itProfessionalism = MutableLiveData(false)
     val itProfessionalism: LiveData<Boolean>
         get() = _itProfessionalism
 
-    private val _mathematicsAndSciences = MutableLiveData<Boolean>(false)
+    private val _mathematicsAndSciences = MutableLiveData(false)
     val mathematicsAndSciences: LiveData<Boolean>
         get() = _mathematicsAndSciences
 
-    private val _credits = MutableLiveData<Boolean>(false)
+    private val _credits = MutableLiveData(false)
     val credits: LiveData<Boolean>
         get() = _credits
 

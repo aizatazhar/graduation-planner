@@ -32,7 +32,7 @@ class SearchFragment : Fragment() {
         recyclerView.adapter = searchRecyclerAdapter
 
         // Observe the LiveData of filtered modules and update our RecyclerView accordingly
-        viewModel.displayList.observe(viewLifecycleOwner, Observer {
+        viewModel.displayList.observe(viewLifecycleOwner, {
             searchRecyclerAdapter.submitList(it)
         })
 
