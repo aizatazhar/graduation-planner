@@ -55,14 +55,15 @@ class ModulesViewModel(application: Application) : AndroidViewModel(application)
 
     fun recalculateGraduationRequirements() {
         viewModelScope.launch {
-            val modules = liveModules.value!!
-            _ulr.value = GraduationRequirements.satisfiesUniversityLevelRequirements(modules)
-            _csFoundations.value = GraduationRequirements.satisfiesComputerScienceFoundations(modules)
-            _csBreadthAndDepth.value = GraduationRequirements.satisfiesComputerScienceBreadthAndDepth(modules)
-            _industrialExperience.value = GraduationRequirements.satisfiesIndustrialExperienceRequirements(modules)
-            _itProfessionalism.value = GraduationRequirements.satisfiesItProfessionalism(modules)
-            _mathematicsAndSciences.value = GraduationRequirements.satisfiesMathematicsAndSciences(modules)
-            _credits.value = GraduationRequirements.satisfiesCredits(modules)
+            liveModules.value?.let {
+                _ulr.value = GraduationRequirements.satisfiesUniversityLevelRequirements(it)
+                _csFoundations.value = GraduationRequirements.satisfiesComputerScienceFoundations(it)
+                _csBreadthAndDepth.value = GraduationRequirements.satisfiesComputerScienceBreadthAndDepth(it)
+                _industrialExperience.value = GraduationRequirements.satisfiesIndustrialExperienceRequirements(it)
+                _itProfessionalism.value = GraduationRequirements.satisfiesItProfessionalism(it)
+                _mathematicsAndSciences.value = GraduationRequirements.satisfiesMathematicsAndSciences(it)
+                _credits.value = GraduationRequirements.satisfiesCredits(it)
+            }
         }
     }
 }

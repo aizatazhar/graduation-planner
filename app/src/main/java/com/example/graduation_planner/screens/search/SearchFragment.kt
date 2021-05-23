@@ -16,9 +16,9 @@ class SearchFragment : Fragment() {
     private lateinit var searchRecyclerAdapter: SearchRecyclerAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?)
-    : View? {
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?)
+            : View? {
         // Inflate the layout for this fragment
         val root: View = inflater.inflate(R.layout.search_fragment, container, false)
 
@@ -28,10 +28,11 @@ class SearchFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(SearchViewModel::class.java)
 
         // Set up our RecyclerView
-        recyclerView = root.findViewById(R.id.rvModules)
-        searchRecyclerAdapter = SearchRecyclerAdapter(viewModel::fetchModuleFromApiAndInsertIntoDatabase,
-                viewModel.displayList.value!!)
-        recyclerView.adapter = searchRecyclerAdapter
+        viewModel.displayList.value?.let {
+            recyclerView = root.findViewById(R.id.rvModules)
+            searchRecyclerAdapter = SearchRecyclerAdapter(viewModel::fetchModuleFromApiAndInsertIntoDatabase, it)
+            recyclerView.adapter = searchRecyclerAdapter
+        }
 
         // Observe the LiveData of filtered modules and update our RecyclerView accordingly
         viewModel.displayList.observe(viewLifecycleOwner, {
@@ -40,7 +41,7 @@ class SearchFragment : Fragment() {
 
         // Handle search bar logic
         val searchBar = root.findViewById<SearchView>(R.id.svSearchBar)
-        searchBar.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+        searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 searchBar.clearFocus()
                 viewModel.filterModules(query)
