@@ -62,7 +62,7 @@ class ModulesViewModel(application: Application) : AndroidViewModel(application)
             _industrialExperience.value = GraduationRequirements.satisfiesIndustrialExperienceRequirements(modules)
             _itProfessionalism.value = GraduationRequirements.satisfiesItProfessionalism(modules)
             _mathematicsAndSciences.value = GraduationRequirements.satisfiesMathematicsAndSciences(modules)
-            _credits.value =  GraduationRequirements.satisfiesCredits(modules)
+            _credits.value = GraduationRequirements.satisfiesCredits(modules)
         }
     }
 }

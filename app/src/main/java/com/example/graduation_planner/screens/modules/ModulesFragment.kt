@@ -1,10 +1,10 @@
 package com.example.graduation_planner.screens.modules
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -17,9 +17,9 @@ class ModulesFragment : Fragment() {
     private lateinit var modulesRecyclerAdapter: ModulesRecyclerAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?)
-    : View? {
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?)
+            : View? {
         val root = inflater.inflate(R.layout.modules_fragment, container, false)
 
         recyclerView = root.findViewById(R.id.rvModulesAdded)

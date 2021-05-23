@@ -2,11 +2,11 @@ package com.example.graduation_planner.screens.requirements
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.graduation_planner.R
 import com.example.graduation_planner.screens.modules.ModulesViewModel
@@ -18,8 +18,8 @@ class RequirementsFragment : Fragment() {
     private var satisfiedColour = Color.parseColor("#00ab1c")
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.requirements_fragment, container, false)
 

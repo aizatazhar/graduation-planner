@@ -47,7 +47,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         _displayList.value = newDisplayList
     }
 
-    private fun readModuleListJson() : List<Module> {
+    private fun readModuleListJson(): List<Module> {
         val jsonString = getApplication<Application>().assets.open("moduleList.json").bufferedReader().use {
             it.readText()
         }
@@ -62,7 +62,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
 
-        client.newCall(request).enqueue(object: Callback {
+        client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 println("Failed to get response")
             }

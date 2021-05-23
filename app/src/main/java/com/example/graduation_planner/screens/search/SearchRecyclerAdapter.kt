@@ -10,8 +10,8 @@ import com.example.graduation_planner.R
 import com.example.graduation_planner.models.Module
 import com.google.android.material.snackbar.Snackbar
 
-
-class SearchRecyclerAdapter(var addModuleCallback: (module: Module) -> Unit, var modules: MutableList<Module>)
+class SearchRecyclerAdapter(
+        var addModuleCallback: (module: Module) -> Unit, var modules: MutableList<Module>)
     : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

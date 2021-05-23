@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduation_planner.R
@@ -16,7 +15,10 @@ class SearchFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchRecyclerAdapter: SearchRecyclerAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?)
+    : View? {
         // Inflate the layout for this fragment
         val root: View = inflater.inflate(R.layout.search_fragment, container, false)
 
@@ -39,18 +41,14 @@ class SearchFragment : Fragment() {
         // Handle search bar logic
         val searchBar = root.findViewById<SearchView>(R.id.svSearchBar)
         searchBar.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
+            override fun onQueryTextSubmit(query: String): Boolean {
                 searchBar.clearFocus()
-                if (query != null) {
-                    viewModel.filterModules(query)
-                }
+                viewModel.filterModules(query)
                 return true
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText != null) {
-                    viewModel.filterModules(newText)
-                }
+            override fun onQueryTextChange(newText: String): Boolean {
+                viewModel.filterModules(newText)
                 return true
             }
         })
