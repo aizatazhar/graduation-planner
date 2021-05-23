@@ -32,6 +32,11 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun filterModules(query: String) {
+        if (query.isEmpty()) {
+            _displayList.value = mutableListOf()
+            return
+        }
+
         val newDisplayList: MutableList<Module> = mutableListOf()
         val filteredList = moduleList.filter { module ->
             val uppercaseQuery = query.toUpperCase(Locale.getDefault())
@@ -39,7 +44,6 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
                     || module.title.toUpperCase(Locale.getDefault()).contains(uppercaseQuery)
         }
         newDisplayList.addAll(filteredList)
-
         _displayList.value = newDisplayList
     }
 
