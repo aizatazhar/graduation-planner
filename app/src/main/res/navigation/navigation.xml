@@ -26,7 +26,24 @@
         android:id="@+id/searchFragment"
         android:name="com.example.graduation_planner.screens.search.SearchFragment"
         android:label="Add a module"
-        tools:layout="@layout/search_fragment" />
+        tools:layout="@layout/search_fragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_semesterFragment"
+            app:destination="@id/semesterFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/semesterFragment"
+        android:name="com.example.graduation_planner.screens.search.SemesterFragment"
+        android:label="semester_fragment"
+        tools:layout="@layout/semester_fragment" />
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.example.graduation_planner.screens.search.FilterFragment"
+        android:label="filter_fragment"
+        tools:layout="@layout/filter_fragment" />
 
 
 </navigation>
