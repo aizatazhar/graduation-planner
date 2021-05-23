@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduation_planner.R
+import com.google.android.material.chip.Chip
 
 class SearchFragment : Fragment() {
     private lateinit var viewModel: SearchViewModel
@@ -53,6 +55,16 @@ class SearchFragment : Fragment() {
                 return true
             }
         })
+
+        val semesterChip: Chip = root.findViewById(R.id.semesterChip)
+        semesterChip.setOnClickListener {
+            it.findNavController().navigate(R.id.action_searchFragment_to_semesterFragment)
+        }
+
+        val filterChip: Chip = root.findViewById(R.id.filterChip)
+        filterChip.setOnClickListener {
+            it.findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
+        }
 
         return root
     }

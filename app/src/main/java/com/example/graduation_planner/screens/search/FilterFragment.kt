@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.graduation_planner.R
 
-class SemesterFragment : Fragment() {
+class FilterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.semester_fragment, container, false)
+        return inflater.inflate(R.layout.filter_fragment, container, false)
     }
 }
