@@ -12,7 +12,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.example.graduation_planner.R
 
-
 class SemesterFragment : Fragment() {
     private val viewModel: SearchViewModel by activityViewModels()
 
