@@ -1,14 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
     tools:context=".screens.search.SemesterFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="@string/semester_fragment_text"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-</FrameLayout>
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Year 1"/>
+
+        <RadioButton
+            android:id="@+id/y1s1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Year 1 Semester 1" />
+
+        <RadioButton
+            android:id="@+id/y1s2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Year 1 Semester 2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Year 2"/>
+
+        <RadioButton
+            android:id="@+id/y2s1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Year 2 Semester 1" />
+
+        <RadioButton
+            android:id="@+id/y2s2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Year 2 Semester 2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Year 3"/>
+
+        <RadioButton
+            android:id="@+id/y3s1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Year 3 Semester 1" />
+
+        <RadioButton
+            android:id="@+id/y3s2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Year 3 Semester 2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Year 4"/>
+
+        <RadioButton
+            android:id="@+id/y4s1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Year 4 Semester 1" />
+
+        <RadioButton
+            android:id="@+id/y4s2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Year 4 Semester 2" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/applyButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apply" />
+
+</LinearLayout>

@@ -34,11 +34,13 @@
             android:id="@+id/action_searchFragment_to_filterFragment"
             app:destination="@id/filterFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/semesterFragment"
         android:name="com.example.graduation_planner.screens.search.SemesterFragment"
-        android:label="semester_fragment"
+        android:label="Select semester"
         tools:layout="@layout/semester_fragment" />
+
     <fragment
         android:id="@+id/filterFragment"
         android:name="com.example.graduation_planner.screens.search.FilterFragment"

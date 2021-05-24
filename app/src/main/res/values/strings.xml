@@ -12,8 +12,7 @@
     <string name="clear_button">Clear button</string>
     <string name="saved_modules">Saved Modules</string>
     <string name="graduation_requirements">Graduation Requirements</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="semester_to_add_to">Semester to add to</string>
     <string name="filter">Filter</string>
+    <string name="semester_fragment_text">Which semester to add to?</string>
 </resources>

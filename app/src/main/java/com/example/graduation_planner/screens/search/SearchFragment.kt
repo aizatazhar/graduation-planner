@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,7 @@ import com.example.graduation_planner.R
 import com.google.android.material.chip.Chip
 
 class SearchFragment : Fragment() {
-    private lateinit var viewModel: SearchViewModel
+    private val viewModel: SearchViewModel by activityViewModels()
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchRecyclerAdapter: SearchRecyclerAdapter
 
@@ -21,13 +22,7 @@ class SearchFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?)
             : View? {
-        // Inflate the layout for this fragment
         val root: View = inflater.inflate(R.layout.search_fragment, container, false)
-
-        // Set up our view model
-        val application = requireNotNull(this.activity).application
-        val viewModelFactory = SearchViewModelFactory(application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(SearchViewModel::class.java)
 
         // Set up our RecyclerView
         viewModel.displayList.value?.let {

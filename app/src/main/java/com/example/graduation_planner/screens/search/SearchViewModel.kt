@@ -25,6 +25,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
     private val dao: SavedModulesDao
 
+    var selectedSemester: String = "y1s1"
+
     init {
         moduleList = readModuleListJson()
         _displayList.value = mutableListOf()
