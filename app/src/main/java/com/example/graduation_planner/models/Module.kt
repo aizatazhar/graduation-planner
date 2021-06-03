@@ -23,10 +23,12 @@ data class Module(
 
         var inSemTwo: Boolean = false,
 
+        var selectedSemester: String = "y1s1",
+
         @Ignore @SerializedName("semesterData")
         var semesterData: List<SemesterData> = listOf()
 ) {
-        constructor(): this("", "", -1, listOf(), false, false, listOf())
+    constructor() : this("", "", -1, listOf(), false, false, "y1s1", listOf())
 }
 
 data class SemesterData(

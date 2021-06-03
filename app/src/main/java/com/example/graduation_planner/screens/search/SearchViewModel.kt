@@ -76,6 +76,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
                         val gson = GsonBuilder().create()
 
                         val moduleToAdd: Module = gson.fromJson(body, Module::class.java)
+                        moduleToAdd.selectedSemester = selectedSemester
                         for (data: SemesterData in moduleToAdd.semesterData) {
                             if (data.semester == 1) {
                                 moduleToAdd.inSemOne = true
@@ -85,6 +86,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
                                 moduleToAdd.inSemTwo = true
                             }
                         }
+
                         dao.insert(moduleToAdd)
                     }
                 }

@@ -83,7 +83,9 @@ class ModulesExpandableListViewAdapter(
         convertView?.findViewById<TextView>(R.id.tvModuleTitle)?.apply {
             val title = getChild(listPosition, expandedListPosition)?.title
             val mcs = getChild(listPosition, expandedListPosition)?.moduleCredit
-            text = "${title} ($mcs} MCs)"
+            println(title)
+            println(mcs)
+            text = "$title ($mcs MCs)"
         }
 
         convertView?.findViewById<ImageView>(R.id.ivClearButton)?.apply {
@@ -98,5 +100,4 @@ class ModulesExpandableListViewAdapter(
     override fun isChildSelectable(p0: Int, p1: Int): Boolean {
         return false
     }
-
 }
