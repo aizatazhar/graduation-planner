@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/home"
         android:name="com.example.graduation_planner.screens.modules.ModulesFragment"
-        tools:layout="@layout/modules_fragment"></fragment>
+        tools:layout="@layout/modules_fragment" />
 
     <fragment
         android:id="@+id/searchFragment"
