@@ -6,7 +6,9 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
+        android:textSize="16sp"
         android:layout_height="wrap_content"
-        android:paddingStart="40dp"
-        android:layout_marginVertical="8dp"/>
+        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:paddingVertical="8dp"/>
+
 </LinearLayout>

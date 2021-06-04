@@ -57,7 +57,7 @@ class ModulesExpandableListViewAdapter(
         val v = view ?: View.inflate(context, R.layout.module_list_group_layout, null)
 
         v?.findViewById<TextView>(R.id.title)?.apply {
-            text = groupNames[listPosition]
+            text = convertGroupName(groupNames[listPosition])
         }
 
         return v
@@ -96,5 +96,19 @@ class ModulesExpandableListViewAdapter(
     fun setModuleMap(newData: HashMap<String, MutableList<Module>>) {
         map = newData
         notifyDataSetChanged()
+    }
+
+    private fun convertGroupName(groupName: String): String {
+        return when (groupName) {
+            "y1s1" -> "Year 1 Semester 1"
+            "y1s2" -> "Year 1 Semester 2"
+            "y2s1" -> "Year 2 Semester 1"
+            "y2s2" -> "Year 2 Semester 2"
+            "y3s1" -> "Year 3 Semester 1"
+            "y3s2" -> "Year 3 Semester 2"
+            "y4s1" -> "Year 4 Semester 1"
+            "y4s2" -> "Year 4 Semester 2"
+            else -> "Unknown"
+        }
     }
 }

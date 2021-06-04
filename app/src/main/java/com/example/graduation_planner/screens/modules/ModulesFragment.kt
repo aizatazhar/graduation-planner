@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ExpandableListView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.example.graduation_planner.R
 import com.example.graduation_planner.models.Module
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class ModulesFragment : Fragment() {
     private val viewModel: ModulesViewModel by activityViewModels()
@@ -48,9 +48,8 @@ class ModulesFragment : Fragment() {
             viewModel.recalculateGraduationRequirements()
         })
 
-
-        val fabAddButton: ExtendedFloatingActionButton = root.findViewById(R.id.fabAddModule)
-        fabAddButton.setOnClickListener {
+        val addButton: Button = root.findViewById(R.id.addModuleButton)
+        addButton.setOnClickListener {
             it.findNavController().navigate(R.id.action_mainFragment_to_searchFragment)
         }
 
