@@ -7,9 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.graduation_planner.database.SavedModulesDao
 import com.example.graduation_planner.database.SavedModulesDatabase
-import com.example.graduation_planner.models.GraduationRequirements
 import com.example.graduation_planner.models.Module
 import kotlinx.coroutines.launch
+import com.example.graduation_planner.models.GraduationRequirements as Gr
 
 class ModulesViewModel(application: Application) : AndroidViewModel(application) {
     private val dao: SavedModulesDao = SavedModulesDatabase.getInstance(application).savedModulesDao
@@ -55,13 +55,13 @@ class ModulesViewModel(application: Application) : AndroidViewModel(application)
     fun recalculateGraduationRequirements() {
         viewModelScope.launch {
             liveModules.value?.let {
-                _ulr.value = GraduationRequirements.satisfiesUniversityLevelRequirements(it)
-                _csFoundations.value = GraduationRequirements.satisfiesComputerScienceFoundations(it)
-                _csBreadthAndDepth.value = GraduationRequirements.satisfiesComputerScienceBreadthAndDepth(it)
-                _industrialExperience.value = GraduationRequirements.satisfiesIndustrialExperienceRequirements(it)
-                _itProfessionalism.value = GraduationRequirements.satisfiesItProfessionalism(it)
-                _mathematicsAndSciences.value = GraduationRequirements.satisfiesMathematicsAndSciences(it)
-                _credits.value = GraduationRequirements.satisfiesCredits(it)
+                _ulr.value = Gr.satisfiesUniversityLevelRequirements(it)
+                _csFoundations.value = Gr.satisfiesComputerScienceFoundations(it)
+                _csBreadthAndDepth.value = Gr.satisfiesComputerScienceBreadthAndDepth(it)
+                _industrialExperience.value = Gr.satisfiesIndustrialExperienceRequirements(it)
+                _itProfessionalism.value = Gr.satisfiesItProfessionalism(it)
+                _mathematicsAndSciences.value = Gr.satisfiesMathematicsAndSciences(it)
+                _credits.value = Gr.satisfiesCredits(it)
             }
         }
     }

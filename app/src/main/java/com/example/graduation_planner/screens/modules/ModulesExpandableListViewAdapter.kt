@@ -1,7 +1,6 @@
 package com.example.graduation_planner.screens.modules
 
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
@@ -45,23 +44,23 @@ class ModulesExpandableListViewAdapter(
         return true
     }
 
+    override fun isChildSelectable(p0: Int, p1: Int): Boolean {
+        return false
+    }
+
     override fun getGroupView(
         listPosition: Int,
         isExpanded: Boolean,
         view: View?,
         viewGroup: ViewGroup?
     ): View? {
-        var convertView = view
-        if (view == null) {
-            val layoutInflater =
-                this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            convertView = layoutInflater.inflate(R.layout.module_list_group_layout, null)
-        }
+        val v = view ?: View.inflate(context, R.layout.module_list_group_layout, null)
 
-        convertView?.findViewById<TextView>(R.id.title)?.apply {
+        v?.findViewById<TextView>(R.id.title)?.apply {
             text = groupNames[listPosition]
         }
-        return convertView
+
+        return v
     }
 
     override fun getChildView(
@@ -71,36 +70,27 @@ class ModulesExpandableListViewAdapter(
         view: View?,
         viewGroup: ViewGroup?
     ): View? {
-        var convertView = view
-        if (view == null) {
-            val layoutInflater =
-                this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            convertView = layoutInflater.inflate(R.layout.module_list_child_layout, null)
-        }
+        val v = view ?: View.inflate(context, R.layout.module_list_child_layout, null)
 
         val module = getChild(listPosition, expandedListPosition)
 
-        convertView?.findViewById<TextView>(R.id.tvModuleCode)?.apply {
+        v?.findViewById<TextView>(R.id.tvModuleCode)?.apply {
             text = module?.moduleCode ?: ""
         }
 
-        convertView?.findViewById<TextView>(R.id.tvModuleTitle)?.apply {
+        v?.findViewById<TextView>(R.id.tvModuleTitle)?.apply {
             val title = module?.title ?: ""
             val mcs = module?.moduleCredit ?: ""
             text = "$title ($mcs MCs)"
         }
 
-        convertView?.findViewById<ImageView>(R.id.ivClearButton)?.apply {
+        v?.findViewById<ImageView>(R.id.ivClearButton)?.apply {
             setOnClickListener {
                 module?.apply { deleteModule(this) }
             }
         }
 
-        return convertView
-    }
-
-    override fun isChildSelectable(p0: Int, p1: Int): Boolean {
-        return false
+        return v
     }
 
     fun setModuleMap(newData: HashMap<String, MutableList<Module>>) {
