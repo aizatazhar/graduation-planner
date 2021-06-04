@@ -6,30 +6,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduation_planner.R
+import com.google.android.material.chip.Chip
 
 class SearchFragment : Fragment() {
-    private lateinit var viewModel: SearchViewModel
+    private val viewModel: SearchViewModel by activityViewModels()
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchRecyclerAdapter: SearchRecyclerAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?)
+            : View {
         val root: View = inflater.inflate(R.layout.search_fragment, container, false)
 
-        // Set up our view model
-        val application = requireNotNull(this.activity).application
-        val viewModelFactory = SearchViewModelFactory(application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(SearchViewModel::class.java)
-
         // Set up our RecyclerView
-        recyclerView = root.findViewById(R.id.rvModules)
-        searchRecyclerAdapter = SearchRecyclerAdapter(viewModel::fetchModuleFromApiAndInsertIntoDatabase,
-                viewModel.displayList.value!!)
-        recyclerView.adapter = searchRecyclerAdapter
+        viewModel.displayList.value?.let {
+            recyclerView = root.findViewById(R.id.rvModules)
+            searchRecyclerAdapter = SearchRecyclerAdapter(viewModel::fetchModuleFromApiAndInsertIntoDatabase, it)
+            recyclerView.adapter = searchRecyclerAdapter
+        }
 
         // Observe the LiveData of filtered modules and update our RecyclerView accordingly
         viewModel.displayList.observe(viewLifecycleOwner, {
@@ -38,22 +37,28 @@ class SearchFragment : Fragment() {
 
         // Handle search bar logic
         val searchBar = root.findViewById<SearchView>(R.id.svSearchBar)
-        searchBar.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
+        searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
                 searchBar.clearFocus()
-                if (query != null) {
-                    viewModel.filterModules(query)
-                }
+                viewModel.filterModules(query)
                 return true
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText != null) {
-                    viewModel.filterModules(newText)
-                }
+            override fun onQueryTextChange(newText: String): Boolean {
+                viewModel.filterModules(newText)
                 return true
             }
         })
+
+        val semesterChip: Chip = root.findViewById(R.id.semesterChip)
+        semesterChip.setOnClickListener {
+            it.findNavController().navigate(R.id.action_searchFragment_to_semesterFragment)
+        }
+
+        val filterChip: Chip = root.findViewById(R.id.filterChip)
+        filterChip.setOnClickListener {
+            it.findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
+        }
 
         return root
     }

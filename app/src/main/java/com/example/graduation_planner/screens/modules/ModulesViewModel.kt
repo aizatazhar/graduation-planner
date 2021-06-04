@@ -7,14 +7,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.graduation_planner.database.SavedModulesDao
 import com.example.graduation_planner.database.SavedModulesDatabase
-import com.example.graduation_planner.models.GraduationRequirements
 import com.example.graduation_planner.models.Module
 import kotlinx.coroutines.launch
+import com.example.graduation_planner.models.GraduationRequirements as Gr
 
 class ModulesViewModel(application: Application) : AndroidViewModel(application) {
     private val dao: SavedModulesDao = SavedModulesDatabase.getInstance(application).savedModulesDao
-
-    val modules: MutableList<Module> = mutableListOf()
+    val groupNames = listOf("y1s1", "y1s2", "y2s1", "y2s2", "y3s1", "y3s2", "y4s1", "y4s2")
     val liveModules: LiveData<List<Module>> = dao.getAll()
 
     private val _ulr = MutableLiveData(false)
@@ -55,14 +54,15 @@ class ModulesViewModel(application: Application) : AndroidViewModel(application)
 
     fun recalculateGraduationRequirements() {
         viewModelScope.launch {
-            val modules = liveModules.value!!
-            _ulr.value = GraduationRequirements.satisfiesUniversityLevelRequirements(modules)
-            _csFoundations.value = GraduationRequirements.satisfiesComputerScienceFoundations(modules)
-            _csBreadthAndDepth.value = GraduationRequirements.satisfiesComputerScienceBreadthAndDepth(modules)
-            _industrialExperience.value = GraduationRequirements.satisfiesIndustrialExperienceRequirements(modules)
-            _itProfessionalism.value = GraduationRequirements.satisfiesItProfessionalism(modules)
-            _mathematicsAndSciences.value = GraduationRequirements.satisfiesMathematicsAndSciences(modules)
-            _credits.value =  GraduationRequirements.satisfiesCredits(modules)
+            liveModules.value?.let {
+                _ulr.value = Gr.satisfiesUniversityLevelRequirements(it)
+                _csFoundations.value = Gr.satisfiesComputerScienceFoundations(it)
+                _csBreadthAndDepth.value = Gr.satisfiesComputerScienceBreadthAndDepth(it)
+                _industrialExperience.value = Gr.satisfiesIndustrialExperienceRequirements(it)
+                _itProfessionalism.value = Gr.satisfiesItProfessionalism(it)
+                _mathematicsAndSciences.value = Gr.satisfiesMathematicsAndSciences(it)
+                _credits.value = Gr.satisfiesCredits(it)
+            }
         }
     }
 }

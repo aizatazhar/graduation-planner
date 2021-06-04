@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
@@ -10,7 +9,7 @@
         android:id="@+id/mainFragment"
         android:name="com.example.graduation_planner.screens.main.MainFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/main_fragment" >
+        tools:layout="@layout/main_fragment">
         <action
             android:id="@+id/action_mainFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
@@ -19,14 +18,31 @@
     <fragment
         android:id="@+id/home"
         android:name="com.example.graduation_planner.screens.modules.ModulesFragment"
-        tools:layout="@layout/modules_fragment" >
-    </fragment>
+        tools:layout="@layout/modules_fragment" />
 
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.graduation_planner.screens.search.SearchFragment"
         android:label="Add a module"
-        tools:layout="@layout/search_fragment" />
+        tools:layout="@layout/search_fragment">
+        <action
+            android:id="@+id/action_searchFragment_to_semesterFragment"
+            app:destination="@id/semesterFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/semesterFragment"
+        android:name="com.example.graduation_planner.screens.search.SemesterFragment"
+        android:label="Select semester"
+        tools:layout="@layout/semester_fragment" />
+
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.example.graduation_planner.screens.search.FilterFragment"
+        android:label="filter_fragment"
+        tools:layout="@layout/filter_fragment" />
 
 </navigation>

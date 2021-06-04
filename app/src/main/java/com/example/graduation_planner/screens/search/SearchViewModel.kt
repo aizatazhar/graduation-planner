@@ -25,6 +25,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
     private val dao: SavedModulesDao
 
+    var selectedSemester: String = "y1s1"
+
     init {
         moduleList = readModuleListJson()
         _displayList.value = mutableListOf()
@@ -32,6 +34,11 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun filterModules(query: String) {
+        if (query.isEmpty()) {
+            _displayList.value = mutableListOf()
+            return
+        }
+
         val newDisplayList: MutableList<Module> = mutableListOf()
         val filteredList = moduleList.filter { module ->
             val uppercaseQuery = query.toUpperCase(Locale.getDefault())
@@ -39,11 +46,10 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
                     || module.title.toUpperCase(Locale.getDefault()).contains(uppercaseQuery)
         }
         newDisplayList.addAll(filteredList)
-
         _displayList.value = newDisplayList
     }
 
-    private fun readModuleListJson() : List<Module> {
+    private fun readModuleListJson(): List<Module> {
         val jsonString = getApplication<Application>().assets.open("moduleList.json").bufferedReader().use {
             it.readText()
         }
@@ -58,7 +64,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
 
-        client.newCall(request).enqueue(object: Callback {
+        client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 println("Failed to get response")
             }
@@ -70,6 +76,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
                         val gson = GsonBuilder().create()
 
                         val moduleToAdd: Module = gson.fromJson(body, Module::class.java)
+                        moduleToAdd.selectedSemester = selectedSemester
                         for (data: SemesterData in moduleToAdd.semesterData) {
                             if (data.semester == 1) {
                                 moduleToAdd.inSemOne = true
@@ -79,6 +86,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
                                 moduleToAdd.inSemTwo = true
                             }
                         }
+
                         dao.insert(moduleToAdd)
                     }
                 }
