@@ -11,12 +11,14 @@ import com.example.graduation_planner.R
 import com.example.graduation_planner.models.Module
 
 class ModulesExpandableListViewAdapter(
-    var context: Context,
-    private var groupNames: Array<String>,
-    var map: HashMap<String, Array<Module>>
+    private val context: Context,
+    private val groupNames: List<String>,
+    private var map: HashMap<String, MutableList<Module>>,
+    private var deleteModule: (module: Module) -> Unit
 ) : BaseExpandableListAdapter() {
+
     override fun getGroupCount(): Int {
-        return map.keys.size
+        return groupNames.size
     }
 
     override fun getChildrenCount(i: Int): Int {
@@ -76,21 +78,21 @@ class ModulesExpandableListViewAdapter(
             convertView = layoutInflater.inflate(R.layout.module_list_child_layout, null)
         }
 
+        val module = getChild(listPosition, expandedListPosition)
+
         convertView?.findViewById<TextView>(R.id.tvModuleCode)?.apply {
-            text = getChild(listPosition, expandedListPosition)?.moduleCode
+            text = module?.moduleCode ?: ""
         }
 
         convertView?.findViewById<TextView>(R.id.tvModuleTitle)?.apply {
-            val title = getChild(listPosition, expandedListPosition)?.title
-            val mcs = getChild(listPosition, expandedListPosition)?.moduleCredit
-            println(title)
-            println(mcs)
+            val title = module?.title ?: ""
+            val mcs = module?.moduleCredit ?: ""
             text = "$title ($mcs MCs)"
         }
 
         convertView?.findViewById<ImageView>(R.id.ivClearButton)?.apply {
             setOnClickListener {
-                println("Hello world")
+                module?.apply { deleteModule(this) }
             }
         }
 
@@ -99,5 +101,10 @@ class ModulesExpandableListViewAdapter(
 
     override fun isChildSelectable(p0: Int, p1: Int): Boolean {
         return false
+    }
+
+    fun setModuleMap(newData: HashMap<String, MutableList<Module>>) {
+        map = newData
+        notifyDataSetChanged()
     }
 }

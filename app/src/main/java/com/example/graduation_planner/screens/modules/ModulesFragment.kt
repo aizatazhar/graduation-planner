@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ExpandableListView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduation_planner.R
@@ -18,16 +19,8 @@ class ModulesFragment : Fragment() {
 //    private lateinit var recyclerView: RecyclerView
 //    private lateinit var modulesRecyclerAdapter: ModulesRecyclerAdapter
 
-    private val groupNames = arrayOf("Y1S1", "Y1S2")
-    private val map = hashMapOf("Y1S1" to arrayOf(
-        Module("CS1101S", "Programming Methodology I"),
-        Module("CS1231S", "Discrete Structures")), "Y1S2" to arrayOf(
-        Module("CS2040S", "Data Structures & Algorithms"),
-        Module("CS2030", "Programming Methodology II")
-    ))
     private lateinit var expandableListView: ExpandableListView
     private lateinit var adapter: ModulesExpandableListViewAdapter
-
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?)
@@ -43,9 +36,26 @@ class ModulesFragment : Fragment() {
 //            viewModel.recalculateGraduationRequirements()
 //        })
 
+
+        val groupNames = viewModel.groupNames
+        val moduleMap = HashMap<String, MutableList<Module>>()
+        groupNames.forEach{ moduleMap[it] = mutableListOf() }
+        adapter = ModulesExpandableListViewAdapter(requireActivity().application, groupNames, moduleMap, viewModel::deleteModule)
         expandableListView = root.findViewById(R.id.modules)
-        adapter = ModulesExpandableListViewAdapter(requireActivity().application, groupNames, map)
         expandableListView.setAdapter(adapter)
+
+        viewModel.liveModules.observe(viewLifecycleOwner, {
+            val modules = viewModel.liveModules.value
+            val map = HashMap<String, MutableList<Module>>()
+            modules?.forEach {
+                val list = map[it.selectedSemester] ?: mutableListOf()
+                list.add(it)
+                map[it.selectedSemester] = list
+            }
+            adapter.setModuleMap(map)
+            viewModel.recalculateGraduationRequirements()
+        })
+
 
         val fabAddButton: ExtendedFloatingActionButton = root.findViewById(R.id.fabAddModule)
         fabAddButton.setOnClickListener {

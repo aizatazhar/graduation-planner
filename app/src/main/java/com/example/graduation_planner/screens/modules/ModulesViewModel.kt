@@ -13,8 +13,7 @@ import kotlinx.coroutines.launch
 
 class ModulesViewModel(application: Application) : AndroidViewModel(application) {
     private val dao: SavedModulesDao = SavedModulesDatabase.getInstance(application).savedModulesDao
-
-    val modules: MutableList<Module> = mutableListOf()
+    val groupNames = listOf("y1s1", "y1s2", "y2s1", "y2s2", "y3s1", "y3s2", "y4s1", "y4s2")
     val liveModules: LiveData<List<Module>> = dao.getAll()
 
     private val _ulr = MutableLiveData(false)
