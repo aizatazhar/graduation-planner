@@ -4,7 +4,7 @@ over their 4 years in order to satisfy graduation requirements. The app is built
 using MVVM architecture, Room database and NUSMods API.
 
 ## Demo
-<img src="/docs/demo.gif" width=30% height=30%>
+<img src="/docs/demo v1.1.gif" width=30% height=30%>
 
 ## Acknowledgements
 * [Gson](https://github.com/google/gson)
