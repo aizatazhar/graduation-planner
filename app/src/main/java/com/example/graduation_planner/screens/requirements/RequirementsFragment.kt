@@ -9,79 +9,84 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.graduation_planner.R
+import com.example.graduation_planner.databinding.RequirementsFragmentBinding
 import com.example.graduation_planner.screens.modules.ModulesViewModel
 
-class RequirementsFragment : Fragment() {
+class RequirementsFragment : Fragment(R.layout.requirements_fragment) {
+    private var _binding: RequirementsFragmentBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: ModulesViewModel by activityViewModels()
 
-    private var notSatisfiedColour = Color.parseColor("#ab1100")
-    private var satisfiedColour = Color.parseColor("#00ab1c")
+    private val notSatisfiedColour = Color.parseColor("#ab1100")
+    private val satisfiedColour = Color.parseColor("#00ab1c")
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.requirements_fragment, container, false)
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = RequirementsFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        val tvUlr: TextView = root.findViewById(R.id.tvUlr)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         viewModel.ulr.observe(viewLifecycleOwner, {
             it?.let {
-                tvUlr.text = getString(R.string.tvUlrText, if (it) "Yes" else "No")
-                setTextViewTextColour(tvUlr, it)
+                binding.tvUlr.text = getString(R.string.tvUlrText, if (it) "Yes" else "No")
+                setTextViewTextColour(binding.tvUlr, it)
             }
         })
 
-        val tvCsFoundations: TextView = root.findViewById(R.id.tvCsFoundations)
         viewModel.csFoundations.observe(viewLifecycleOwner, {
             it?.let {
-                tvCsFoundations.text = getString(R.string.tvCsFoundationsText, if (it) "Yes" else "No")
-                setTextViewTextColour(tvCsFoundations, it)
+                binding.tvCsFoundations.text =
+                    getString(R.string.tvCsFoundationsText, if (it) "Yes" else "No")
+                setTextViewTextColour(binding.tvCsFoundations, it)
             }
         })
 
-        val tvCsBreadthAndDepth: TextView = root.findViewById(R.id.tvCsBreadthAndDepth)
         viewModel.csBreadthAndDepth.observe(viewLifecycleOwner, {
             it?.let {
-                tvCsBreadthAndDepth.text = getString(R.string.tvCsBreadthAndDepthText, if (it) "Yes" else "No")
-                setTextViewTextColour(tvCsBreadthAndDepth, it)
+                binding.tvCsBreadthAndDepth.text =
+                    getString(R.string.tvCsBreadthAndDepthText, if (it) "Yes" else "No")
+                setTextViewTextColour(binding.tvCsBreadthAndDepth, it)
             }
         })
 
-        val tvIndustrialExperience: TextView = root.findViewById(R.id.tvIndustrialExperience)
         viewModel.industrialExperience.observe(viewLifecycleOwner, {
             it?.let {
-                tvIndustrialExperience.text = getString(R.string.tvIndustrialExperienceText, if (it) "Yes" else "No")
-                setTextViewTextColour(tvIndustrialExperience, it)
+                binding.tvIndustrialExperience.text =
+                    getString(R.string.tvIndustrialExperienceText, if (it) "Yes" else "No")
+                setTextViewTextColour(binding.tvIndustrialExperience, it)
             }
 
         })
 
-        val tvItProfessionalism: TextView = root.findViewById(R.id.tvItProfessionalism)
         viewModel.itProfessionalism.observe(viewLifecycleOwner, {
             it?.let {
-                tvItProfessionalism.text = getString(R.string.tvItProfessionalismText, if (it) "Yes" else "No")
-                setTextViewTextColour(tvItProfessionalism, it)
+                binding.tvItProfessionalism.text =
+                    getString(R.string.tvItProfessionalismText, if (it) "Yes" else "No")
+                setTextViewTextColour(binding.tvItProfessionalism, it)
             }
 
         })
 
-        val tvMathematicsAndSciences: TextView = root.findViewById(R.id.tvMathematicsAndSciences)
         viewModel.mathematicsAndSciences.observe(viewLifecycleOwner, {
             it?.let {
-                tvMathematicsAndSciences.text = getString(R.string.tvMathematicsAndSciencesText, if (it) "Yes" else "No")
-                setTextViewTextColour(tvMathematicsAndSciences, it)
+                binding.tvMathematicsAndSciences.text =
+                    getString(R.string.tvMathematicsAndSciencesText, if (it) "Yes" else "No")
+                setTextViewTextColour(binding.tvMathematicsAndSciences, it)
             }
         })
 
-        val tvCredits: TextView = root.findViewById(R.id.tvCredits)
         viewModel.credits.observe(viewLifecycleOwner, {
             it?.let {
-                tvCredits.text = getString(R.string.tvCreditsText, if (it) "Yes" else "No")
-                setTextViewTextColour(tvCredits, it)
+                binding.tvCredits.text = getString(R.string.tvCreditsText, if (it) "Yes" else "No")
+                setTextViewTextColour(binding.tvCredits, it)
             }
         })
-
-        return root
     }
 
     private fun setTextViewTextColour(textView: TextView, isSatisfied: Boolean) {
@@ -90,5 +95,11 @@ class RequirementsFragment : Fragment() {
         } else {
             textView.setTextColor(notSatisfiedColour)
         }
+    }
+
+    // Fragments outlive their views so need to clean up references to binding class instance
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

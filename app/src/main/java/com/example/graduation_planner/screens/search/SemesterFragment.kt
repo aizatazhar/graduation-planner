@@ -4,32 +4,34 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.RadioButton
-import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
-import com.example.graduation_planner.R
+import com.example.graduation_planner.databinding.SemesterFragmentBinding
 
 class SemesterFragment : Fragment() {
+    private var _binding: SemesterFragmentBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: SearchViewModel by activityViewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.semester_fragment, container, false)
+    ): View {
+        _binding = SemesterFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        setCheckedRadioButton(root)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val applyButton: Button = root.findViewById(R.id.applyButton)
-        applyButton.setOnClickListener {
-            viewModel.selectedSemester = getSelectedSemesterId(root)
+        setCheckedRadioButton(view)
+        binding.applyButton.setOnClickListener {
+            viewModel.selectedSemester = getSelectedSemesterId(view)
             it.findNavController().popBackStack()
         }
-
-        return root
     }
 
     private fun setCheckedRadioButton(view: View) {
@@ -41,9 +43,14 @@ class SemesterFragment : Fragment() {
     }
 
     private fun getSelectedSemesterId(view: View): String {
-        val radioGroup: RadioGroup = view.findViewById(R.id.radioGroup)
-        val radioButtonId: Int = radioGroup.checkedRadioButtonId
+        val radioButtonId: Int = binding.radioGroup.checkedRadioButtonId
         // Return the string version of the radio button's id
         return resources.getResourceEntryName(radioButtonId)
+    }
+
+    // Fragments outlive their views so need to clean up references to binding class instance
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
