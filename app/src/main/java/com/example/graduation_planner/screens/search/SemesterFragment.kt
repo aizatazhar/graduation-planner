@@ -1,9 +1,7 @@
 package com.example.graduation_planner.screens.search
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -12,24 +10,17 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.example.graduation_planner.R
 
-class SemesterFragment : Fragment() {
+class SemesterFragment : Fragment(R.layout.semester_fragment) {
     private val viewModel: SearchViewModel by activityViewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.semester_fragment, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setCheckedRadioButton(view)
 
-        setCheckedRadioButton(root)
-
-        val applyButton: Button = root.findViewById(R.id.applyButton)
+        val applyButton: Button = view.findViewById(R.id.applyButton)
         applyButton.setOnClickListener {
-            viewModel.selectedSemester = getSelectedSemesterId(root)
+            viewModel.selectedSemester = getSelectedSemesterId(view)
             it.findNavController().popBackStack()
         }
-
-        return root
     }
 
     private fun setCheckedRadioButton(view: View) {

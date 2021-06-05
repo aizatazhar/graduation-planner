@@ -13,17 +13,9 @@ import com.example.graduation_planner.screens.requirements.RequirementsFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(R.layout.main_fragment) {
     private lateinit var mainFragmentAdapter: MainFragmentAdapter
     private lateinit var viewPager: ViewPager2
-
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.main_fragment, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mainFragmentAdapter = MainFragmentAdapter(this)

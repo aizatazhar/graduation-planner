@@ -1,32 +1,26 @@
 package com.example.graduation_planner.screens.search
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduation_planner.R
 import com.google.android.material.chip.Chip
 
 class SearchFragment : Fragment() {
-    private val viewModel: SearchViewModel by activityViewModels()
+    private val viewModel: SearchViewModel by viewModels()
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchRecyclerAdapter: SearchRecyclerAdapter
 
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?)
-            : View {
-        val root: View = inflater.inflate(R.layout.search_fragment, container, false)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // Set up our RecyclerView
         viewModel.displayList.value?.let {
-            recyclerView = root.findViewById(R.id.rvModules)
-            searchRecyclerAdapter = SearchRecyclerAdapter(viewModel::fetchModuleFromApiAndInsertIntoDatabase, it)
+            recyclerView = view.findViewById(R.id.rvModules)
+            searchRecyclerAdapter =
+                SearchRecyclerAdapter(viewModel::fetchModuleFromApiAndInsertIntoDatabase, it)
             recyclerView.adapter = searchRecyclerAdapter
         }
 
@@ -36,7 +30,7 @@ class SearchFragment : Fragment() {
         })
 
         // Handle search bar logic
-        val searchBar = root.findViewById<SearchView>(R.id.svSearchBar)
+        val searchBar = view.findViewById<SearchView>(R.id.svSearchBar)
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 searchBar.clearFocus()
@@ -50,16 +44,14 @@ class SearchFragment : Fragment() {
             }
         })
 
-        val semesterChip: Chip = root.findViewById(R.id.semesterChip)
+        val semesterChip: Chip = view.findViewById(R.id.semesterChip)
         semesterChip.setOnClickListener {
             it.findNavController().navigate(R.id.action_searchFragment_to_semesterFragment)
         }
 
-        val filterChip: Chip = root.findViewById(R.id.filterChip)
+        val filterChip: Chip = view.findViewById(R.id.filterChip)
         filterChip.setOnClickListener {
             it.findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
         }
-
-        return root
     }
 }
