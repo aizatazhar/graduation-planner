@@ -5,12 +5,16 @@
         <item name="colorPrimary">#8B0E3A</item>
         <item name="colorPrimaryVariant">#8B0E3A</item>
         <item name="colorOnPrimary">@color/white</item>
+
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#E0C389</item>
         <item name="colorSecondaryVariant">#013989</item>
         <item name="colorOnSecondary">@color/black</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
         <!-- Customize your theme here. -->
+        <item name="fontFamily">@font/lato</item>
     </style>
 </resources>
