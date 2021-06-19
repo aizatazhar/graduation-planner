@@ -22,9 +22,8 @@
         android:id="@+id/tvModuleCode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:paddingTop="4dp"
+        style="@style/headerText3"
         app:layout_constraintEnd_toStartOf="@id/ivClearButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +32,8 @@
         android:id="@+id/tvModuleTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
+        android:paddingBottom="4dp"
+        style="@style/bodyText"
         app:layout_constraintTop_toBottomOf="@id/tvModuleCode"
         app:layout_constraintEnd_toStartOf="@id/ivClearButton"
         app:layout_constraintStart_toStartOf="parent" />

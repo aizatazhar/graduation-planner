@@ -51,10 +51,6 @@ class ModulesFragment : Fragment() {
             adapter.setModuleMap(map)
             viewModel.recalculateGraduationRequirements()
         })
-
-        binding.addModuleButton.setOnClickListener {
-            it.findNavController().navigate(R.id.action_mainFragment_to_searchFragment)
-        }
     }
 
     // Fragments outlive their views so need to clean up references to binding class instance

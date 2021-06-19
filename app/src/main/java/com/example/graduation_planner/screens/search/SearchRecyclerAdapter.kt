@@ -1,6 +1,5 @@
 package com.example.graduation_planner.screens.search
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduation_planner.R
 import com.example.graduation_planner.models.Module
-import com.google.android.material.snackbar.Snackbar
 
 class SearchRecyclerAdapter(
         var onClickCallback: (module: Module) -> Unit, var modules: MutableList<Module>)
@@ -23,14 +21,6 @@ class SearchRecyclerAdapter(
             itemView.setOnClickListener {
                 val position: Int = adapterPosition
                 onClickCallback(modules[position])
-
-                val snackBar = Snackbar.make(it, "Added ${modules[position].moduleCode}",
-                        Snackbar.LENGTH_LONG)
-                val snackBarView = snackBar.view
-                snackBarView.setBackgroundColor(Color.BLACK)
-                val textView = snackBarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
-                textView.setTextColor(Color.WHITE)
-                snackBar.show()
             }
         }
     }
