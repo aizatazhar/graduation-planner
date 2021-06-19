@@ -18,11 +18,12 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigation)
         bottomNavigation.setupWithNavController(navController)
 
-//        val appBarConfiguration = AppBarConfiguration(
-//            setOf(R.id.searchFragment, R.id.requirementsFragment, R.id.modulesFragment))
+        // Set top level fragments
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.searchFragment, R.id.requirementsFragment, R.id.modulesFragment))
 
-        //  Create up button for navigation
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
+        // Create up button for navigation if not top level fragment
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
     }
 
     override fun onSupportNavigateUp(): Boolean {
