@@ -11,13 +11,14 @@
         android:id="@+id/svSearchBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginVertical="8dp"
+        android:layout_marginHorizontal="16dp"
         android:background="#D2E1E0"
         app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:queryHint="Search" />
+        app:queryHint="@string/search_hint_text" />
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"

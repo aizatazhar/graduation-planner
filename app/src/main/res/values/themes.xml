@@ -2,17 +2,24 @@
     <!-- Base application theme. -->
     <style name="Theme.Graduation_Planner" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#8B0E3A</item>
-        <item name="colorPrimaryVariant">#8B0E3A</item>
+        <item name="colorPrimary">@color/grey.900</item>
+        <item name="colorPrimaryVariant">@color/grey.900</item>
         <item name="colorOnPrimary">@color/white</item>
 
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">#E0C389</item>
-        <item name="colorSecondaryVariant">#013989</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:windowBackground">@color/grey.900</item>
+
+        <item name="android:editTextColor">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColorTertiary">@color/white</item>
+        <item name="android:textColorPrimaryInverse">@color/white</item>
+        <item name="android:textColorSecondaryInverse">@color/white</item>
+        <item name="android:textColorTertiaryInverse">@color/white</item>
+
+        <item name="android:radioButtonStyle">@style/customRadioButtonStyle</item>
 
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
 
         <!-- Set default font-->
         <item name="fontFamily">@font/lato</item>

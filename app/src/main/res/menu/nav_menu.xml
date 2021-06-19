@@ -3,7 +3,7 @@
     <item
         android:id="@+id/modulesFragment"
         android:title="Modules"
-        android:icon="@drawable/ic_baseline_save">
+        android:icon="@drawable/ic_baseline_menu_book">
     </item>
 
     <item
@@ -15,6 +15,6 @@
     <item
         android:id="@+id/requirementsFragment"
         android:title="Requirements"
-        android:icon="@drawable/ic_baseline_library_books">
+        android:icon="@drawable/ic_baseline_checklist">
     </item>
 </menu>
