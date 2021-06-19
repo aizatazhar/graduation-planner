@@ -3,27 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/modulesFragment">
 
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.graduation_planner.screens.main.MainFragment"
         android:label="@string/app_name"
         tools:layout="@layout/main_fragment">
-        <action
-            android:id="@+id/action_mainFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/home"
+        android:id="@+id/modulesFragment"
         android:name="com.example.graduation_planner.screens.modules.ModulesFragment"
+        android:label="Saved Modules"
         tools:layout="@layout/modules_fragment" />
 
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.graduation_planner.screens.search.SearchFragment"
-        android:label="Add a module"
+        android:label="Search"
         tools:layout="@layout/search_fragment">
         <action
             android:id="@+id/action_searchFragment_to_semesterFragment"
@@ -42,7 +40,13 @@
     <fragment
         android:id="@+id/filterFragment"
         android:name="com.example.graduation_planner.screens.search.FilterFragment"
-        android:label="filter_fragment"
+        android:label="Filter modules"
         tools:layout="@layout/filter_fragment" />
+
+    <fragment
+        android:id="@+id/requirementsFragment"
+        android:name="com.example.graduation_planner.screens.requirements.RequirementsFragment"
+        android:label="Graduation Requirements"
+        tools:layout="@layout/requirements_fragment" />
 
 </navigation>
