@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.graduation_planner.R
@@ -21,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar
 class SearchFragment : Fragment() {
     private var _binding: SearchFragmentBinding? = null
     private val binding get() = _binding!!
+
     private lateinit var viewModel: SearchViewModel
     private lateinit var searchRecyclerAdapter: SearchRecyclerAdapter
 
@@ -38,7 +38,7 @@ class SearchFragment : Fragment() {
 
         val repository = Repository(requireActivity().application)
         val viewModelFactory = SearchViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(SearchViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(SearchViewModel::class.java)
 
         // Set up our RecyclerView
         viewModel.displayList.value?.let {
@@ -75,7 +75,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun onClickModule(module: Module) {
-        viewModel.getModuleData(module)
+        viewModel.addModule(module)
 
         val snackBar = Snackbar.make(requireView(), "Added ${module.moduleCode}", Snackbar.LENGTH_SHORT)
         snackBar.view.apply {
