@@ -30,8 +30,3 @@ data class Module(
 ) {
     constructor() : this("", "", -1, listOf(), false, false, "y1s1", listOf())
 }
-
-data class SemesterData(
-        @SerializedName("semester")
-        val semester: Int = -1
-)

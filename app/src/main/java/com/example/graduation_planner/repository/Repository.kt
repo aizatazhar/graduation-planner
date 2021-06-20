@@ -12,6 +12,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.*
 import okio.IOException
+import java.lang.Exception
+import java.net.UnknownHostException
+import kotlin.reflect.typeOf
 
 class Repository(val application: Application) {
     private val dao: SavedModulesDao = SavedModulesDatabase.getInstance(application).savedModulesDao
@@ -31,33 +34,30 @@ class Repository(val application: Application) {
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
 
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                println("Failed to get response")
-            }
+        try {
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) throw IOException("Unexpected code $response")
 
-            override fun onResponse(call: Call, response: Response) {
-                GlobalScope.launch {
-                    withContext(Dispatchers.IO) {
-                        val body = response.body?.string()
-                        val gson = GsonBuilder().create()
+                val body = response.body?.string()
+                val gson = GsonBuilder().create()
 
-                        val moduleToAdd: Module = gson.fromJson(body, Module::class.java)
-                        moduleToAdd.selectedSemester = selectedSemester
-                        for (data: SemesterData in moduleToAdd.semesterData) {
-                            if (data.semester == 1) {
-                                moduleToAdd.inSemOne = true
-                            }
+                val moduleToAdd: Module = gson.fromJson(body, Module::class.java)
+                moduleToAdd.selectedSemester = selectedSemester
 
-                            if (data.semester == 2) {
-                                moduleToAdd.inSemTwo = true
-                            }
-                        }
+                for (data: SemesterData in moduleToAdd.semesterData) {
+                    if (data.semester == 1) {
+                        moduleToAdd.inSemOne = true
+                    }
 
-                        dao.insert(moduleToAdd)
+                    if (data.semester == 2) {
+                        moduleToAdd.inSemTwo = true
                     }
                 }
+
+                dao.insert(moduleToAdd)
             }
-        })
+        } catch (e: Exception) {
+            throw e
+        }
     }
 }

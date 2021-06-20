@@ -75,12 +75,27 @@ class SearchFragment : Fragment() {
     }
 
     private fun onClickModule(module: Module) {
-        viewModel.addModule(module)
+        viewModel.addModule(module, ::showSuccessSnackBar, ::showErrorSnackBar)
+    }
 
-        val snackBar = Snackbar.make(requireView(), "Added ${module.moduleCode}", Snackbar.LENGTH_SHORT)
+    private fun showSuccessSnackBar(message: String) {
+        val snackBar = Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT)
         snackBar.view.apply {
             setBackgroundColor(ContextCompat.getColor(context, R.color.green_500))
-            findViewById<TextView>(com.google.android.material.R.id.snackbar_text).setTextColor(Color.WHITE)
+            findViewById<TextView>(com.google.android.material.R.id.snackbar_text).setTextColor(
+                Color.WHITE
+            )
+        }
+        snackBar.show()
+    }
+
+    private fun showErrorSnackBar(message: String) {
+        val snackBar = Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT)
+        snackBar.view.apply {
+            setBackgroundColor(ContextCompat.getColor(context, R.color.red_600))
+            findViewById<TextView>(com.google.android.material.R.id.snackbar_text).setTextColor(
+                Color.WHITE
+            )
         }
         snackBar.show()
     }

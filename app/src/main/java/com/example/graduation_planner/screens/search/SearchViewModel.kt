@@ -3,8 +3,15 @@ package com.example.graduation_planner.screens.search
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.graduation_planner.models.Module
 import com.example.graduation_planner.repository.Repository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okio.IOException
+import java.lang.Exception
+import java.net.UnknownHostException
 import java.util.*
 
 class SearchViewModel(private val repository: Repository) : ViewModel() {
@@ -36,7 +43,20 @@ class SearchViewModel(private val repository: Repository) : ViewModel() {
         _displayList.value = newDisplayList
     }
 
-    fun addModule(module: Module) {
-        repository.fetchModuleDataAndInsertIntoRoomDatabase(module, selectedSemester)
+    fun addModule(module: Module, onSuccess: (String) -> Unit, onFailure: (String) -> Unit) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                try {
+                    repository.fetchModuleDataAndInsertIntoRoomDatabase(module, selectedSemester)
+                    onSuccess("Added module ${module.moduleCode}")
+                } catch (e: UnknownHostException) {
+                    e.printStackTrace()
+                    onFailure("An error occurred. Please check your internet connection")
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    onFailure(e.message.toString())
+                }
+            }
+        }
     }
 }
