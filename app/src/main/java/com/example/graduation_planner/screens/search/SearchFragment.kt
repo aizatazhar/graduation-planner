@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.graduation_planner.R
 import com.example.graduation_planner.databinding.SearchFragmentBinding
 import com.example.graduation_planner.models.Module
@@ -75,7 +76,9 @@ class SearchFragment : Fragment() {
     }
 
     private fun onClickModule(module: Module) {
-        viewModel.addModule(module, ::showSuccessSnackBar, ::showErrorSnackBar)
+        viewModel.setSelectedFullModule(module)
+        findNavController().navigate(R.id.action_searchFragment_to_moduleDetailsFragment)
+//        viewModel.addModule(module, ::showSuccessSnackBar, ::showErrorSnackBar)
     }
 
     private fun showSuccessSnackBar(message: String) {

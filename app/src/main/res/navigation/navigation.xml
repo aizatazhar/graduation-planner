@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_searchFragment_to_filterFragment"
             app:destination="@id/filterFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_moduleDetailsFragment"
+            app:destination="@id/moduleDetailsFragment" />
     </fragment>
 
     <fragment
@@ -48,5 +51,11 @@
         android:name="com.example.graduation_planner.screens.requirements.RequirementsFragment"
         android:label="Graduation Requirements"
         tools:layout="@layout/requirements_fragment" />
+
+    <fragment
+        android:id="@+id/moduleDetailsFragment"
+        android:name="com.example.graduation_planner.screens.search.ModuleDetailsFragment"
+        android:label="Module details"
+        tools:layout="@layout/module_details_fragment" />
 
 </navigation>

@@ -3,6 +3,7 @@ package com.example.graduation_planner.screens.search
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduation_planner.R
@@ -16,9 +17,10 @@ class SearchRecyclerAdapter(
         var moduleCode: TextView = itemView.findViewById(R.id.tvModuleCode)
         var title: TextView = itemView.findViewById(R.id.tvModuleTitle)
         var semesters: TextView = itemView.findViewById(R.id.tvModuleSemesters)
+        var viewMoreButton: ImageButton = itemView.findViewById(R.id.viewMoreButton)
 
         init {
-            itemView.setOnClickListener {
+            viewMoreButton.setOnClickListener {
                 val position: Int = adapterPosition
                 onClickCallback(modules[position])
             }

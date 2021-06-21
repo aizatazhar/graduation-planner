@@ -15,4 +15,6 @@
     <string name="filter">Filter</string>
     <string name="semester_fragment_text">Which semester to add to?</string>
     <string name="search_hint_text"><font size="14">Type a module code or title</font></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
