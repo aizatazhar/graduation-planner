@@ -7,10 +7,23 @@
     android:layout_marginHorizontal="16dp"
     tools:context=".screens.search.ModuleDetailsFragment">
 
+    <TextView
+        android:id="@+id/errorMessage"
+        style="@style/headerText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        android:paddingTop="16dp"
+        android:text=""
+        android:textColor="@color/red.400" />
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@id/viewOnNusModsButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,8 +33,30 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             layout="@layout/module_details"/>
-
     </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/viewOnNusModsButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:layout_marginRight="16dp"
+        android:text="View on NUSMods"
+        style="@style/secondaryButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:layout_marginLeft="16dp"
+        android:text="Save module"
+        style="@style/primaryButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/viewOnNusModsButton"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

@@ -28,10 +28,9 @@ class Repository(val application: Application) {
         return gson.fromJson(jsonString, Array<Module>::class.java).toList()
     }
 
-    fun fetchModuleDataAndInsertIntoRoomDatabase(module: Module, selectedSemester: String) {
-        val moduleQuery = module.moduleCode
+    fun fetchModuleDataAndInsertIntoRoomDatabase(moduleCode: String, selectedSemester: String) {
         val academicYear = "2020-2021"
-        val url = "https://api.nusmods.com/v2/$academicYear/modules/$moduleQuery.json"
+        val url = "https://api.nusmods.com/v2/$academicYear/modules/$moduleCode.json"
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
 

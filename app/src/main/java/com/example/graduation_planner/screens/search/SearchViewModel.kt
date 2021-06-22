@@ -46,12 +46,12 @@ class SearchViewModel(private val repository: Repository) : ViewModel() {
         _displayList.value = newDisplayList
     }
 
-    fun addModule(module: Module, onSuccess: (String) -> Unit, onFailure: (String) -> Unit) {
+    fun addModule(moduleCode: String, onSuccess: (String) -> Unit, onFailure: (String) -> Unit) {
         viewModelScope.launch {
             withContext(Dispatchers.IO){
                 try {
-                    repository.fetchModuleDataAndInsertIntoRoomDatabase(module, selectedSemester)
-                    onSuccess("Added module ${module.moduleCode}")
+                    repository.fetchModuleDataAndInsertIntoRoomDatabase(moduleCode, selectedSemester)
+                    onSuccess("Added module $moduleCode")
                 } catch (e: UnknownHostException) {
                     e.printStackTrace()
                     onFailure("An error occurred. Please check your internet connection")

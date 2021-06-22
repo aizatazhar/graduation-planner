@@ -48,6 +48,11 @@
         <item name="backgroundTint">@color/red.600</item>
     </style>
 
+    <style name="secondaryButton" parent="baseButton">
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="chipText" parent="TextAppearance.MaterialComponents.Chip">
         <item name="android:fontFamily">@font/poppins</item>
     </style>

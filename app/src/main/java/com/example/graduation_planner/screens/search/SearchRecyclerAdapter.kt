@@ -51,7 +51,7 @@ class SearchRecyclerAdapter(
     private fun semestersToString(semesters: List<Int>): String {
         var result = ""
         for (semester in semesters) {
-            result += "Sem $semester | "
+            result += "Sem $semester • "
         }
         return result.substring(0, result.length - 2)
     }

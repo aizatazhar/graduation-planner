@@ -1,14 +1,21 @@
 package com.example.graduation_planner.screens.search
 
+import android.content.Intent
+import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.graduation_planner.R
 import com.example.graduation_planner.databinding.ModuleDetailsFragmentBinding
-import com.example.graduation_planner.databinding.SearchFragmentBinding
+import com.example.graduation_planner.models.FullModule
 import com.example.graduation_planner.repository.Repository
+import com.google.android.material.snackbar.Snackbar
 
 class ModuleDetailsFragment : Fragment() {
     private var _binding: ModuleDetailsFragmentBinding? = null
@@ -29,52 +36,97 @@ class ModuleDetailsFragment : Fragment() {
 
         val repository = Repository(requireActivity().application)
         val viewModelFactory = SearchViewModelFactory(repository)
-        viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(SearchViewModel::class.java)
+        viewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory).get(SearchViewModel::class.java)
 
         viewModel.isErrorLoading.observe(viewLifecycleOwner, {
             if (it) {
                 binding.progressBar.visibility = View.GONE
-                binding.details.moduleTitle.text = "Error loading module"
+                binding.details.layout.visibility = View.GONE
+                binding.errorMessage.text = "Error loading module"
+                binding.errorMessage.visibility = View.VISIBLE
             }
         })
 
-        viewModel.selectedFullModule.observe(viewLifecycleOwner, {
-            if (it != null) {
+        viewModel.selectedFullModule.observe(viewLifecycleOwner, { module ->
+            module?.apply {
                 binding.progressBar.visibility = View.GONE
-                binding.details.moduleCode.text = it.moduleCode
-                binding.details.moduleTitle.text = it.title
-                binding.details.departmentFacultyCredits.text = "${it.department} • ${it.faculty} • ${it.moduleCredit} MCs"
+                binding.details.layout.visibility = View.VISIBLE
 
-                var semestersText = ""
-                it.semesterData.forEach{data ->
-                    run {
-                        semestersText += "Sem " + data.semester + " • "
-                    }
-                }
-                semestersText = semestersText.substring(0, semestersText.length - 3)
-                binding.details.semesters.text = semestersText
+                binding.details.moduleCode.text = moduleCode
+                binding.details.moduleTitle.text = title
+                binding.details.departmentFacultyCredits.text =
+                    "${department} • ${faculty} • ${moduleCredit} MCs"
+                binding.details.semesters.text = getSemestersText(this)
+                binding.details.description.text = description
 
-                binding.details.description.text = it.description
-
-                if (it.prerequisite !== null) {
-                    binding.details.prerequisite.text = it.prerequisite
-                    binding.details.prerequisite.visibility = View.VISIBLE
+                if (prerequisite !== null) {
+                    binding.details.prerequisite.text = prerequisite
                     binding.details.prerequisiteHeader.visibility = View.VISIBLE
+                    binding.details.prerequisite.visibility = View.VISIBLE
                 }
 
-                if (it.corequisite !== null) {
-                    binding.details.corequisite.text = it.corequisite
+                if (corequisite !== null) {
+                    binding.details.corequisite.text = corequisite
                     binding.details.corequisite.visibility = View.VISIBLE
                     binding.details.corequisiteHeader.visibility = View.VISIBLE
                 }
 
-                if (it.preclusion !== null) {
-                    binding.details.preclusion.text = it.preclusion
+                if (preclusion !== null) {
+                    binding.details.preclusion.text = preclusion
                     binding.details.preclusion.visibility = View.VISIBLE
                     binding.details.preclusionHeader.visibility = View.VISIBLE
                 }
+
+                binding.saveButton.setOnClickListener {
+                    viewModel.addModule(moduleCode, ::showSuccessSnackBar, ::showErrorSnackBar)
+                }
+                binding.viewOnNusModsButton.setOnClickListener {
+                    openLink(this)
+                }
             }
         })
+    }
+
+    private fun getSemestersText(module: FullModule): String {
+        var semestersText = ""
+        module.semesterData.forEach { data ->
+            run {
+                semestersText += "Sem " + data.semester + " • "
+            }
+        }
+        return semestersText.substring(0, semestersText.length - 3)
+    }
+
+    private fun openLink(module: FullModule) {
+        val uris = Uri.parse("https://nusmods.com/modules/${module.moduleCode}/")
+        val intents = Intent(Intent.ACTION_VIEW, uris)
+        val b = Bundle()
+        b.putBoolean("new_window", true)
+        intents.putExtras(b)
+        requireActivity().startActivity(intents)
+    }
+
+    private fun showSuccessSnackBar(message: String) {
+        val snackBar = Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT)
+        snackBar.view.apply {
+            setBackgroundColor(ContextCompat.getColor(context, R.color.green_500))
+            findViewById<TextView>(com.google.android.material.R.id.snackbar_text).setTextColor(
+                Color.WHITE
+            )
+        }
+        snackBar.show()
+    }
+
+    private fun showErrorSnackBar(message: String) {
+        val snackBar = Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT)
+        snackBar.view.apply {
+            setBackgroundColor(ContextCompat.getColor(context, R.color.red_600))
+            findViewById<TextView>(com.google.android.material.R.id.snackbar_text).setTextColor(
+                Color.WHITE
+            )
+        }
+        snackBar.show()
     }
 
     // Fragments outlive their views so need to clean up references to binding class instance

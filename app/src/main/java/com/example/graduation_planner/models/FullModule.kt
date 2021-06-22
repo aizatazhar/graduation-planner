@@ -33,7 +33,7 @@ data class SemesterData(
     val examDate: String,
     val examDuration: Int,
     val semester: Int,
-    val timetable: List<Timetable>
+    val timetable: List<Any>
 )
 
 data class Timetable(
