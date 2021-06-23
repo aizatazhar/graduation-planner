@@ -4,8 +4,10 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
-import android.widget.ImageView
+import android.widget.ImageButton
 import android.widget.TextView
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.graduation_planner.R
 import com.example.graduation_planner.models.Module
 
@@ -84,7 +86,7 @@ class ModulesExpandableListViewAdapter(
             text = "$title ($mcs MCs)"
         }
 
-        v?.findViewById<ImageView>(R.id.ivClearButton)?.apply {
+        v?.findViewById<ImageButton>(R.id.viewMoreButton)?.apply {
             setOnClickListener {
                 module?.apply { deleteModule(this) }
             }
