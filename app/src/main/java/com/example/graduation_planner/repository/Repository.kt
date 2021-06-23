@@ -29,7 +29,7 @@ class Repository(val application: Application) {
     }
 
     fun fetchModuleDataAndInsertIntoRoomDatabase(moduleCode: String, selectedSemester: String) {
-        val academicYear = "2020-2021"
+        val academicYear = "2021-2022"
         val url = "https://api.nusmods.com/v2/$academicYear/modules/$moduleCode.json"
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
