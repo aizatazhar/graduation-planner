@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="headerText">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="fontFamily">@font/poppins_medium</item>
         <item name="android:textColor">@color/white</item>
@@ -33,7 +33,8 @@
     <style name="bodyText">
         <item name="android:fontFamily">@font/lato_regular</item>
         <item name="fontFamily">@font/lato_regular</item>
-        <item name="android:textColor">@color/grey.200</item>
+        <item name="android:textColor">@color/grey.300</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
     </style>
 
     <style name="baseButton" parent="Widget.MaterialComponents.Button">
@@ -45,6 +46,11 @@
 
     <style name="primaryButton" parent="baseButton">
         <item name="backgroundTint">@color/red.600</item>
+    </style>
+
+    <style name="secondaryButton" parent="baseButton">
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="chipText" parent="TextAppearance.MaterialComponents.Chip">

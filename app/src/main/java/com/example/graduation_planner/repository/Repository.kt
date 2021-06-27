@@ -3,6 +3,7 @@ package com.example.graduation_planner.repository
 import android.app.Application
 import com.example.graduation_planner.database.SavedModulesDao
 import com.example.graduation_planner.database.SavedModulesDatabase
+import com.example.graduation_planner.models.FullModule
 import com.example.graduation_planner.models.Module
 import com.example.graduation_planner.models.SemesterData
 import com.google.gson.GsonBuilder
@@ -27,10 +28,9 @@ class Repository(val application: Application) {
         return gson.fromJson(jsonString, Array<Module>::class.java).toList()
     }
 
-    fun fetchModuleDataAndInsertIntoRoomDatabase(module: Module, selectedSemester: String) {
-        val moduleQuery = module.moduleCode
-        val academicYear = "2020-2021"
-        val url = "https://api.nusmods.com/v2/$academicYear/modules/$moduleQuery.json"
+    fun fetchModuleDataAndInsertIntoRoomDatabase(moduleCode: String, selectedSemester: String) {
+        val academicYear = "2021-2022"
+        val url = "https://api.nusmods.com/v2/$academicYear/modules/$moduleCode.json"
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
 
@@ -59,5 +59,29 @@ class Repository(val application: Application) {
         } catch (e: Exception) {
             throw e
         }
+    }
+
+    fun fetchFullModuleData(moduleCode: String): FullModule {
+        val academicYear = "2021-2022"
+        val url = "https://api.nusmods.com/v2/$academicYear/modules/$moduleCode.json"
+        val request = Request.Builder().url(url).build()
+        val client = OkHttpClient()
+
+        try {
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+                val body = response.body?.string()
+                val gson = GsonBuilder().create()
+
+                return gson.fromJson(body, FullModule::class.java)
+            }
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    fun deleteModule(moduleCode: String) {
+        dao.delete(moduleCode)
     }
 }

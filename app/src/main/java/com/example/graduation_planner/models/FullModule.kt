@@ -12,11 +12,11 @@ data class FullModule(
     val moduleCode: String,
     val moduleCredit: String,
     val preclusion: String,
-    val prereqTree: PrereqTree,
+    val prereqTree: Any,
     val prerequisite: String,
     val semesterData: List<SemesterData>,
     val title: String,
-    val workload: List<Int>
+    val workload: List<Number>
 )
 
 data class Attributes(
@@ -33,7 +33,7 @@ data class SemesterData(
     val examDate: String,
     val examDuration: Int,
     val semester: Int,
-    val timetable: List<Timetable>
+    val timetable: List<Any>
 )
 
 data class Timetable(

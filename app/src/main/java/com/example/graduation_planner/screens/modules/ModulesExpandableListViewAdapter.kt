@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
-import android.widget.ImageView
+import android.widget.ImageButton
 import android.widget.TextView
 import com.example.graduation_planner.R
 import com.example.graduation_planner.models.Module
@@ -13,7 +13,7 @@ class ModulesExpandableListViewAdapter(
     private val context: Context,
     private val groupNames: List<String>,
     private var map: HashMap<String, MutableList<Module>>,
-    private var deleteModule: (module: Module) -> Unit
+    private var onClickModule: (module: Module) -> Unit
 ) : BaseExpandableListAdapter() {
 
     override fun getGroupCount(): Int {
@@ -84,9 +84,9 @@ class ModulesExpandableListViewAdapter(
             text = "$title ($mcs MCs)"
         }
 
-        v?.findViewById<ImageView>(R.id.ivClearButton)?.apply {
+        v?.findViewById<ImageButton>(R.id.viewMoreButton)?.apply {
             setOnClickListener {
-                module?.apply { deleteModule(this) }
+                module?.apply { onClickModule(this) }
             }
         }
 
