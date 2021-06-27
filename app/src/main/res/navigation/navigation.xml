@@ -16,7 +16,11 @@
         android:id="@+id/modulesFragment"
         android:name="com.example.graduation_planner.screens.modules.ModulesFragment"
         android:label="Saved Modules"
-        tools:layout="@layout/modules_fragment" />
+        tools:layout="@layout/modules_fragment" >
+        <action
+            android:id="@+id/action_modulesFragment_to_moduleDetailsFragment"
+            app:destination="@id/moduleDetailsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/searchFragment"

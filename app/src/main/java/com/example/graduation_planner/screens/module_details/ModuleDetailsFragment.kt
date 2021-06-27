@@ -43,8 +43,19 @@ class ModuleDetailsFragment : Fragment() {
             ViewModelProvider(requireActivity(), viewModelFactory).get(ModuleDetailsViewModel::class.java)
 
         setFragmentResultListener("searchFragmentKey") { requestKey, bundle ->
-            moduleCode = bundle.getString("moduleCode") ?: ""
-            selectedSemester = bundle.getString("selectedSemester") ?: ""
+            bundle.getString("moduleCode")?.let {
+                moduleCode = it
+            }
+            bundle.getString("selectedSemester")?.let {
+                selectedSemester = it
+            }
+            viewModel.setSelectedFullModule(moduleCode)
+        }
+
+        setFragmentResultListener("moduleFragmentKey") { requestKey, bundle ->
+            bundle.getString("moduleCode")?.let {
+                moduleCode = it
+            }
             viewModel.setSelectedFullModule(moduleCode)
         }
 
