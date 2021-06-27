@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="16dp"
-    tools:context=".screens.search.ModuleDetailsFragment">
+    tools:context=".screens.module_details.ModuleDetailsFragment">
 
     <TextView
         android:id="@+id/errorMessage"

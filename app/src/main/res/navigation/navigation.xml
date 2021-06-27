@@ -54,7 +54,7 @@
 
     <fragment
         android:id="@+id/moduleDetailsFragment"
-        android:name="com.example.graduation_planner.screens.search.ModuleDetailsFragment"
+        android:name="com.example.graduation_planner.screens.module_details.ModuleDetailsFragment"
         android:label="Module details"
         tools:layout="@layout/module_details_fragment" />
 

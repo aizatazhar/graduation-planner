@@ -1,14 +1,13 @@
 package com.example.graduation_planner.screens.search
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -16,7 +15,6 @@ import com.example.graduation_planner.R
 import com.example.graduation_planner.databinding.SearchFragmentBinding
 import com.example.graduation_planner.models.Module
 import com.example.graduation_planner.repository.Repository
-import com.google.android.material.snackbar.Snackbar
 
 class SearchFragment : Fragment() {
     private var _binding: SearchFragmentBinding? = null
@@ -39,7 +37,8 @@ class SearchFragment : Fragment() {
 
         val repository = Repository(requireActivity().application)
         val viewModelFactory = SearchViewModelFactory(repository)
-        viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(SearchViewModel::class.java)
+        viewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory).get(SearchViewModel::class.java)
 
         // Set up our RecyclerView
         viewModel.displayList.value?.let {
@@ -75,32 +74,17 @@ class SearchFragment : Fragment() {
         }
     }
 
+    // Passes module code and selectedSemester to ModuleDetailsFragment via FragmentManager,
+    // then navigates to the ModuleDetailsFragment
     private fun onClickModule(module: Module) {
-        viewModel.setSelectedFullModule(module)
+        setFragmentResult(
+            "searchFragmentKey",
+            bundleOf(
+                "moduleCode" to module.moduleCode,
+                "selectedSemester" to viewModel.selectedSemester
+            )
+        )
         findNavController().navigate(R.id.action_searchFragment_to_moduleDetailsFragment)
-//        viewModel.addModule(module, ::showSuccessSnackBar, ::showErrorSnackBar)
-    }
-
-    private fun showSuccessSnackBar(message: String) {
-        val snackBar = Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT)
-        snackBar.view.apply {
-            setBackgroundColor(ContextCompat.getColor(context, R.color.green_500))
-            findViewById<TextView>(com.google.android.material.R.id.snackbar_text).setTextColor(
-                Color.WHITE
-            )
-        }
-        snackBar.show()
-    }
-
-    private fun showErrorSnackBar(message: String) {
-        val snackBar = Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT)
-        snackBar.view.apply {
-            setBackgroundColor(ContextCompat.getColor(context, R.color.red_600))
-            findViewById<TextView>(com.google.android.material.R.id.snackbar_text).setTextColor(
-                Color.WHITE
-            )
-        }
-        snackBar.show()
     }
 
     // Fragments outlive their views so need to clean up references to binding class instance

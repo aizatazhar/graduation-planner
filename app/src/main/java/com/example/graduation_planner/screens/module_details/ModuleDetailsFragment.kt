@@ -1,4 +1,4 @@
-package com.example.graduation_planner.screens.search
+package com.example.graduation_planner.screens.module_details
 
 import android.content.Intent
 import android.graphics.Color
@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import com.example.graduation_planner.R
 import com.example.graduation_planner.databinding.ModuleDetailsFragmentBinding
@@ -21,7 +22,9 @@ class ModuleDetailsFragment : Fragment() {
     private var _binding: ModuleDetailsFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: SearchViewModel
+    private lateinit var viewModel: ModuleDetailsViewModel
+    private lateinit var moduleCode: String
+    private lateinit var selectedSemester: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,9 +38,15 @@ class ModuleDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val repository = Repository(requireActivity().application)
-        val viewModelFactory = SearchViewModelFactory(repository)
+        val viewModelFactory = ModuleDetailsViewModelFactory(repository)
         viewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory).get(SearchViewModel::class.java)
+            ViewModelProvider(requireActivity(), viewModelFactory).get(ModuleDetailsViewModel::class.java)
+
+        setFragmentResultListener("searchFragmentKey") { requestKey, bundle ->
+            moduleCode = bundle.getString("moduleCode") ?: ""
+            selectedSemester = bundle.getString("selectedSemester") ?: ""
+            viewModel.setSelectedFullModule(moduleCode)
+        }
 
         viewModel.isErrorLoading.observe(viewLifecycleOwner, {
             if (it) {
@@ -79,7 +88,7 @@ class ModuleDetailsFragment : Fragment() {
                 }
 
                 binding.saveButton.setOnClickListener {
-                    viewModel.addModule(moduleCode, ::showSuccessSnackBar, ::showErrorSnackBar)
+                    viewModel.addModule(moduleCode, selectedSemester, ::showSuccessSnackBar, ::showErrorSnackBar)
                 }
                 binding.viewOnNusModsButton.setOnClickListener {
                     openLink(this)
