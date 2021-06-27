@@ -103,7 +103,7 @@ class ModuleDetailsFragment : Fragment() {
 
                 binding.saveButton.setOnClickListener {
                     if (selectedSemester == "") {
-                        viewModel.deleteModule(moduleCode)
+                        viewModel.deleteModule(moduleCode, ::showSuccessSnackBar, ::showErrorSnackBar)
                         findNavController().popBackStack()
                     } else {
                         viewModel.addModule(moduleCode, selectedSemester, ::showSuccessSnackBar, ::showErrorSnackBar)

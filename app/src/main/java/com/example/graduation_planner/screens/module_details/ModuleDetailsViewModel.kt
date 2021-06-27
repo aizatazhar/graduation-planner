@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.graduation_planner.models.FullModule
-import com.example.graduation_planner.models.Module
 import com.example.graduation_planner.repository.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -64,7 +63,15 @@ class ModuleDetailsViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun deleteModule(moduleCode: String) {
-        repository.deleteModule(moduleCode)
+    fun deleteModule(
+        moduleCode: String, onSuccess: (String) -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        try {
+            repository.deleteModule(moduleCode)
+            onSuccess("Deleted module $moduleCode")
+        } catch (e: Exception) {
+            onFailure(e.message.toString())
+        }
     }
 }
