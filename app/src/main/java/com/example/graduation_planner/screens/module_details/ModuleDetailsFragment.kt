@@ -40,25 +40,22 @@ class ModuleDetailsFragment : Fragment() {
 
         val repository = Repository(requireActivity().application)
         val viewModelFactory = ModuleDetailsViewModelFactory(repository)
-        viewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory).get(ModuleDetailsViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ModuleDetailsViewModel::class.java)
 
+        // Callback is active until the fragment is destroyed, so if the fragment is recreated,
+        // the callback will be inactive
         setFragmentResultListener("searchFragmentKey") { requestKey, bundle ->
-            bundle.getString("moduleCode")?.let {
-                moduleCode = it
-            }
-            bundle.getString("selectedSemester")?.let {
-                selectedSemester = it
-            }
             binding.saveButton.text = "Save module"
+            bundle.apply {
+                moduleCode = getString("moduleCode") ?: ""
+                selectedSemester = getString("selectedSemester") ?: ""
+            }
             viewModel.setSelectedFullModule(moduleCode)
         }
 
         setFragmentResultListener("moduleFragmentKey") { requestKey, bundle ->
-            bundle.getString("moduleCode")?.let {
-                moduleCode = it
-            }
             binding.saveButton.text = "Delete module"
+            moduleCode = bundle.getString("moduleCode") ?: ""
             viewModel.setSelectedFullModule(moduleCode)
         }
 
@@ -149,6 +146,26 @@ class ModuleDetailsFragment : Fragment() {
             )
         }
         snackBar.show()
+    }
+
+    // The variables are lost when the fragment is destroyed (e.g. navigating to another fragment
+    // in bottom navigation), so we use save the variables and restore them when the fragment
+    // is recreated
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("moduleCode", moduleCode)
+        outState.putString("selectedSemester", selectedSemester)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        moduleCode = savedInstanceState?.getString("moduleCode") ?: ""
+        selectedSemester = savedInstanceState?.getString("selectedSemester") ?: ""
+        if (selectedSemester == "") {
+            binding.saveButton.text = "Delete module"
+        } else {
+            binding.saveButton.text = "Save module"
+        }
     }
 
     // Fragments outlive their views so need to clean up references to binding class instance
