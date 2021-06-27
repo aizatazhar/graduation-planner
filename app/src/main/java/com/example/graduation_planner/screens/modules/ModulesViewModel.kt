@@ -44,10 +44,6 @@ class ModulesViewModel(application: Application) : AndroidViewModel(application)
     val credits: LiveData<Boolean>
         get() = _credits
 
-    fun clearAllModules() {
-        dao.clear()
-    }
-
     fun recalculateGraduationRequirements() {
         viewModelScope.launch {
             liveModules.value?.let {

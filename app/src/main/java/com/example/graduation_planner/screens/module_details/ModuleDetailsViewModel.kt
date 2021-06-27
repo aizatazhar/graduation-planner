@@ -38,12 +38,7 @@ class ModuleDetailsViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun addModule(
-        moduleCode: String,
-        selectedSemester: String,
-        onSuccess: (String) -> Unit,
-        onFailure: (String) -> Unit
-    ) {
+    fun addModule(moduleCode: String, selectedSemester: String, showSnackBar: (String, Boolean) -> Unit) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
@@ -51,27 +46,24 @@ class ModuleDetailsViewModel(private val repository: Repository) : ViewModel() {
                         moduleCode,
                         selectedSemester
                     )
-                    onSuccess("Added module $moduleCode")
+                    showSnackBar("Added module $moduleCode", true)
                 } catch (e: UnknownHostException) {
                     e.printStackTrace()
-                    onFailure("An error occurred. Please check your internet connection")
+                    showSnackBar("An error occurred. Please check your internet connection", false)
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    onFailure(e.message.toString())
+                    showSnackBar(e.message.toString(), false)
                 }
             }
         }
     }
 
-    fun deleteModule(
-        moduleCode: String, onSuccess: (String) -> Unit,
-        onFailure: (String) -> Unit
-    ) {
+    fun deleteModule(moduleCode: String, showSnackBar: (String, Boolean) -> Unit) {
         try {
             repository.deleteModule(moduleCode)
-            onSuccess("Deleted module $moduleCode")
+            showSnackBar("Deleted module $moduleCode", true)
         } catch (e: Exception) {
-            onFailure(e.message.toString())
+            showSnackBar(e.message.toString(), false)
         }
     }
 }
