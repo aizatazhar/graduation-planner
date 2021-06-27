@@ -45,7 +45,7 @@ class ModuleDetailsFragment : Fragment() {
         // Callback is active until the fragment is destroyed, so if the fragment is recreated,
         // the callback will be inactive
         setFragmentResultListener("searchFragmentKey") { requestKey, bundle ->
-            binding.saveButton.text = "Save module"
+            binding.ctaButton.text = "Save"
             bundle.apply {
                 moduleCode = getString("moduleCode") ?: ""
                 selectedSemester = getString("selectedSemester") ?: ""
@@ -54,7 +54,7 @@ class ModuleDetailsFragment : Fragment() {
         }
 
         setFragmentResultListener("moduleFragmentKey") { requestKey, bundle ->
-            binding.saveButton.text = "Delete module"
+            binding.ctaButton.text = "Unsave"
             moduleCode = bundle.getString("moduleCode") ?: ""
             viewModel.setSelectedFullModule(moduleCode)
         }
@@ -98,7 +98,7 @@ class ModuleDetailsFragment : Fragment() {
                     binding.details.preclusionHeader.visibility = View.VISIBLE
                 }
 
-                binding.saveButton.setOnClickListener {
+                binding.ctaButton.setOnClickListener {
                     if (selectedSemester == "") {
                         viewModel.deleteModule(moduleCode, ::showSnackBar)
                         findNavController().popBackStack()
@@ -162,9 +162,9 @@ class ModuleDetailsFragment : Fragment() {
         moduleCode = savedInstanceState?.getString("moduleCode") ?: ""
         selectedSemester = savedInstanceState?.getString("selectedSemester") ?: ""
         if (selectedSemester == "") {
-            binding.saveButton.text = "Delete module"
+            binding.ctaButton.text = "Unsave"
         } else {
-            binding.saveButton.text = "Save module"
+            binding.ctaButton.text = "Save"
         }
     }
 
