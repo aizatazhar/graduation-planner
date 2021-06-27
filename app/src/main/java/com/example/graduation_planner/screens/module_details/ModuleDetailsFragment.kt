@@ -103,10 +103,10 @@ class ModuleDetailsFragment : Fragment() {
 
                 binding.saveButton.setOnClickListener {
                     if (selectedSemester == "") {
-                        viewModel.deleteModule(moduleCode, ::showSuccessSnackBar, ::showErrorSnackBar)
+                        viewModel.deleteModule(moduleCode, ::showSnackBar)
                         findNavController().popBackStack()
                     } else {
-                        viewModel.addModule(moduleCode, selectedSemester, ::showSuccessSnackBar, ::showErrorSnackBar)
+                        viewModel.addModule(moduleCode, selectedSemester, ::showSnackBar)
                     }
                 }
                 binding.viewOnNusModsButton.setOnClickListener {
@@ -135,23 +135,15 @@ class ModuleDetailsFragment : Fragment() {
         requireActivity().startActivity(intents)
     }
 
-    private fun showSuccessSnackBar(message: String) {
+    private fun showSnackBar(message: String, isSuccessful: Boolean) {
         val snackBar = Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT)
         snackBar.anchorView = requireActivity().findViewById(R.id.bottomNavigation)
         snackBar.view.apply {
-            setBackgroundColor(ContextCompat.getColor(context, R.color.green_500))
-            findViewById<TextView>(com.google.android.material.R.id.snackbar_text).setTextColor(
-                Color.WHITE
-            )
-        }
-        snackBar.show()
-    }
-
-    private fun showErrorSnackBar(message: String) {
-        val snackBar = Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT)
-        snackBar.anchorView = requireActivity().findViewById(R.id.bottomNavigation)
-        snackBar.view.apply {
-            setBackgroundColor(ContextCompat.getColor(context, R.color.red_600))
+            if (isSuccessful) {
+                setBackgroundColor(ContextCompat.getColor(context, R.color.green_500))
+            } else {
+                setBackgroundColor(ContextCompat.getColor(context, R.color.red_600))
+            }
             findViewById<TextView>(com.google.android.material.R.id.snackbar_text).setTextColor(
                 Color.WHITE
             )
