@@ -44,10 +44,6 @@ class ModulesViewModel(application: Application) : AndroidViewModel(application)
     val credits: LiveData<Boolean>
         get() = _credits
 
-    fun deleteModule(module: Module) {
-        dao.delete(module)
-    }
-
     fun clearAllModules() {
         dao.clear()
     }

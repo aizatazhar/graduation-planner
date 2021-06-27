@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.graduation_planner.R
 import com.example.graduation_planner.databinding.ModuleDetailsFragmentBinding
 import com.example.graduation_planner.models.FullModule
@@ -23,8 +24,8 @@ class ModuleDetailsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var viewModel: ModuleDetailsViewModel
-    private lateinit var moduleCode: String
-    private lateinit var selectedSemester: String
+    private var moduleCode: String = ""
+    private var selectedSemester: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +50,7 @@ class ModuleDetailsFragment : Fragment() {
             bundle.getString("selectedSemester")?.let {
                 selectedSemester = it
             }
+            binding.saveButton.text = "Save module"
             viewModel.setSelectedFullModule(moduleCode)
         }
 
@@ -56,6 +58,7 @@ class ModuleDetailsFragment : Fragment() {
             bundle.getString("moduleCode")?.let {
                 moduleCode = it
             }
+            binding.saveButton.text = "Delete module"
             viewModel.setSelectedFullModule(moduleCode)
         }
 
@@ -99,7 +102,12 @@ class ModuleDetailsFragment : Fragment() {
                 }
 
                 binding.saveButton.setOnClickListener {
-                    viewModel.addModule(moduleCode, selectedSemester, ::showSuccessSnackBar, ::showErrorSnackBar)
+                    if (selectedSemester == "") {
+                        viewModel.deleteModule(moduleCode)
+                        findNavController().popBackStack()
+                    } else {
+                        viewModel.addModule(moduleCode, selectedSemester, ::showSuccessSnackBar, ::showErrorSnackBar)
+                    }
                 }
                 binding.viewOnNusModsButton.setOnClickListener {
                     openLink(this)

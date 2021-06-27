@@ -9,8 +9,8 @@ interface SavedModulesDao {
     @Query("SELECT * FROM saved_modules")
     fun getAll(): LiveData<List<Module>>
 
-    @Delete
-    fun delete(module: Module)
+    @Query("DELETE FROM saved_modules WHERE moduleCode =:moduleCode ")
+    fun delete(moduleCode: String)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(module: Module)

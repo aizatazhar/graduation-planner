@@ -80,4 +80,8 @@ class Repository(val application: Application) {
             throw e
         }
     }
+
+    fun deleteModule(moduleCode: String) {
+        dao.delete(moduleCode)
+    }
 }
