@@ -32,7 +32,7 @@
             android:id="@+id/details"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            layout="@layout/module_details"/>
+            layout="@layout/module_details_layout"/>
     </androidx.core.widget.NestedScrollView>
 
     <Button
