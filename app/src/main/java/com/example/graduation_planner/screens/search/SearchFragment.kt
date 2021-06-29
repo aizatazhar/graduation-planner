@@ -42,7 +42,7 @@ class SearchFragment : Fragment() {
 
         // Set up our RecyclerView
         viewModel.displayList.value?.let {
-            searchRecyclerAdapter = SearchRecyclerAdapter(this::onClickModule, it)
+            searchRecyclerAdapter = SearchRecyclerAdapter(requireActivity(), this::onClickModule, it)
             binding.rvModules.adapter = searchRecyclerAdapter
         }
 

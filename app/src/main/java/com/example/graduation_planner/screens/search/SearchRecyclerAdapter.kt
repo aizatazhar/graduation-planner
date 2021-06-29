@@ -1,17 +1,23 @@
 package com.example.graduation_planner.screens.search
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduation_planner.R
 import com.example.graduation_planner.models.Module
 
 class SearchRecyclerAdapter(
-        var onClickCallback: (module: Module) -> Unit, var modules: MutableList<Module>)
-    : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHolder>() {
+    val context: Context,
+    var onClickCallback: (module: Module) -> Unit,
+    var modules: MutableList<Module>
+) : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var moduleCode: TextView = itemView.findViewById(R.id.tvModuleCode)
@@ -28,7 +34,20 @@ class SearchRecyclerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.searched_module_layout, parent, false)
+        val view: View = LayoutInflater.from(parent.context)
+            .inflate(R.layout.module_list_child_layout, parent, false)
+
+        val cardView: CardView = view.findViewById(R.id.cardView)
+        cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.yellow_700))
+
+        val horizontalPaddingDp = 16
+        val verticalPaddingDp = 6
+        val scale: Float = context.resources.displayMetrics.density
+        val horizontalPaddingPx = (horizontalPaddingDp * scale + 0.5f).toInt()
+        val verticalPaddingPx = (verticalPaddingDp * scale + 0.5f).toInt()
+        val layout: LinearLayout = view.findViewById(R.id.layout)
+        layout.setPadding(horizontalPaddingPx, verticalPaddingPx, horizontalPaddingPx, verticalPaddingPx)
+
         return ViewHolder(view)
     }
 
@@ -36,6 +55,7 @@ class SearchRecyclerAdapter(
         holder.moduleCode.text = modules[position].moduleCode
         holder.title.text = modules[position].title
         holder.semesters.text = semestersToString(modules[position].semesters)
+        holder.semesters.visibility = View.VISIBLE
     }
 
     override fun getItemCount(): Int {

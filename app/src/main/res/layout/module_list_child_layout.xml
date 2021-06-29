@@ -2,8 +2,9 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingHorizontal="16dp">
 
@@ -36,7 +37,7 @@
 
             <TextView
                 android:id="@+id/tvModuleCode"
-                style="@style/headerText2"
+                style="@style/headerText3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toStartOf="@id/viewMoreButton"
@@ -51,6 +52,17 @@
                 app:layout_constraintEnd_toStartOf="@id/viewMoreButton"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvModuleCode" />
+
+            <TextView
+                android:id="@+id/tvModuleSemesters"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp"
+                style="@style/bodyText"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/viewMoreButton"
+                app:layout_constraintTop_toBottomOf="@id/tvModuleTitle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
