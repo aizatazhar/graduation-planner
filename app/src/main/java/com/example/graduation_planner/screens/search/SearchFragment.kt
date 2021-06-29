@@ -65,12 +65,11 @@ class SearchFragment : Fragment() {
             }
         })
 
-        binding.semesterChip.setOnClickListener {
-            it.findNavController().navigate(R.id.action_searchFragment_to_semesterFragment)
-        }
-
-        binding.filterChip.setOnClickListener {
-            it.findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
+        binding.semesterChip.apply {
+            setOnClickListener {
+                it.findNavController().navigate(R.id.action_searchFragment_to_semesterFragment)
+            }
+            text = "Adding to ${viewModel.selectedSemester.toUpperCase()}"
         }
     }
 
