@@ -68,10 +68,6 @@ class SearchFragment : Fragment() {
         binding.semesterChip.setOnClickListener {
             it.findNavController().navigate(R.id.action_searchFragment_to_semesterFragment)
         }
-
-        binding.filterChip.setOnClickListener {
-            it.findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
-        }
     }
 
     // Passes module code and selectedSemester to ModuleDetailsFragment via FragmentManager,
